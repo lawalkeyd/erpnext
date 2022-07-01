@@ -2,7 +2,7 @@
 // For license information, please see license.txt
 
 
-frappe.ui.form.on('Course Scheduling Tool', {
+frappe.ui.form.on('Subject Scheduling Tool', {
 	setup(frm) {
 		frm.add_fetch('student_group', 'program', 'program');
 		frm.add_fetch('student_group', 'course', 'course');

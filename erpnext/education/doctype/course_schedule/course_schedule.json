@@ -64,7 +64,7 @@
    "fieldtype": "Link",
    "in_global_search": 1,
    "label": "Course",
-   "options": "Course",
+   "options": "Subject",
    "reqd": 1
   },
   {
@@ -116,11 +116,10 @@
   }
  ],
  "links": [],
- "modified": "2021-11-24 11:57:08.164449",
+ "modified": "2022-06-14 16:42:35.233126",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Course Schedule",
- "naming_rule": "By \"Naming Series\" field",
  "owner": "Administrator",
  "permissions": [
   {

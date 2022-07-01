@@ -4,5 +4,5 @@
 import unittest
 
 
-class TestCourseSchedulingTool(unittest.TestCase):
+class TestSubjectSchedulingTool(unittest.TestCase):
 	pass

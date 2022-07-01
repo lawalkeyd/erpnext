@@ -14,7 +14,7 @@ def get_context(context):
 		raise frappe.Redirect
 
 	context.education_settings = frappe.get_single("Education Settings")
-	course = frappe.get_doc("Course", course_name)
+	course = frappe.get_doc("Subject", course_name)
 	context.program = program
 	context.course = course
 
@@ -24,5 +24,8 @@ def get_context(context):
 
 
 def get_topic_progress(topics, course, program):
+	print("topics", topics)
+	print("course", course)
+	print("program", program)
 	progress = {topic.name: utils.get_topic_progress(topic, course.name, program) for topic in topics}
 	return progress

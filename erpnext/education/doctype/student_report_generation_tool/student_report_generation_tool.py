@@ -25,7 +25,7 @@ def preview_report_card(doc):
 	doc.students = [doc.student]
 	if not (doc.student_name and doc.student_batch):
 		program_enrollment = frappe.get_all(
-			"Program Enrollment",
+			"Class Enrollment",
 			fields=["student_batch_name", "student_name"],
 			filters={"student": doc.student, "docstatus": ("!=", 2), "academic_year": doc.academic_year},
 		)
@@ -39,7 +39,9 @@ def preview_report_card(doc):
 	)
 	assessment_result = values.get("assessment_result").get(doc.student)
 	courses = values.get("course_dict")
+	print("cooouursssee", courses)
 	course_criteria = get_courses_criteria(courses)
+	print("cooouurssee_criteria", course_criteria)
 
 	# get the assessment group as per the user selection
 	if doc.include_all_assessment:
@@ -91,6 +93,7 @@ def get_courses_criteria(courses):
 				"Course Assessment Criteria", fields=["assessment_criteria"], filters={"parent": course}
 			)
 		]
+	print("Coursseee Criteria", course_criteria)
 	return course_criteria
 
 

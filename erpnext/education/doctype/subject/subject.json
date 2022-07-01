@@ -77,7 +77,7 @@
  "modified": "2020-03-29 12:50:27.677589",
  "modified_by": "Administrator",
  "module": "Education",
- "name": "Course",
+ "name": "Subject",
  "owner": "Administrator",
  "permissions": [
   {

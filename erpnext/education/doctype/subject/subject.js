@@ -1,4 +1,4 @@
-frappe.ui.form.on('Course', {
+frappe.ui.form.on('Subject', {
 	refresh: function(frm) {
 		if (!cur_frm.doc.__islocal) {
 			frm.add_custom_button(__('Add to Programs'), function() {
@@ -47,9 +47,9 @@ frappe.ui.form.on('Course', {
 							}
 						},
 						freeze: true,
-						freeze_message: __('...Adding Course to Programs')
+						freeze_message: __('...Adding Subject to Programs')
 					})
-				}, __('Add Course to Programs'), __('Add'));
+				}, __('Add Subject to Programs'), __('Add'));
 			} else {
 				frappe.msgprint(__('This course is already added to the existing programs'));
 			}
@@ -57,7 +57,7 @@ frappe.ui.form.on('Course', {
 	}
 });
 
-frappe.ui.form.on('Course Topic', {
+frappe.ui.form.on('Subject Topic', {
 	topics_add: function(frm){
 		frm.fields_dict['topics'].grid.get_field('topic').get_query = function(doc){
 			var topics_list = [];

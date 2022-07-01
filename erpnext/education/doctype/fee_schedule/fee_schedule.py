@@ -142,7 +142,7 @@ def get_students(student_group, academic_year, academic_term=None, student_categ
 	students = frappe.db.sql(
 		"""
 		select pe.student, pe.student_name, pe.program, pe.student_batch_name
-		from `tabStudent Group Student` sgs, `tabProgram Enrollment` pe
+		from `tabStudent Group Student` sgs, `tabClass Enrollment` pe
 		where
 			pe.student = sgs.student and pe.academic_year = %s
 			and sgs.parent = %s and sgs.active = 1

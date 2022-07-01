@@ -77,7 +77,7 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Program",
-   "options": "Classes",
+   "options": "Class",
    "reqd": 1
   },
   {
@@ -110,6 +110,18 @@
    "label": "Boarding Student"
   },
   {
+   "fieldname": "enrolled_courses",
+   "fieldtype": "Section Break",
+   "label": "Enrolled courses"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "courses",
+   "fieldtype": "Table",
+   "label": "Courses",
+   "options": "Program Enrollment Course"
+  },
+  {
    "collapsible": 1,
    "collapsible_depends_on": "vehicle_no",
    "fieldname": "transportation",
@@ -134,18 +146,6 @@
    "label": "Vehicle/Bus Number"
   },
   {
-   "fieldname": "enrolled_courses",
-   "fieldtype": "Section Break",
-   "label": "Enrolled courses"
-  },
-  {
-   "allow_on_submit": 1,
-   "fieldname": "courses",
-   "fieldtype": "Table",
-   "label": "Courses",
-   "options": "Program Enrollment Course"
-  },
-  {
    "collapsible": 1,
    "fieldname": "section_break_7",
    "fieldtype": "Section Break",
@@ -162,7 +162,7 @@
    "fieldtype": "Link",
    "label": "Amended From",
    "no_copy": 1,
-   "options": "Program Enrollment",
+   "options": "Class Enrollment",
    "print_hide": 1,
    "read_only": 1
   },
@@ -176,10 +176,10 @@
  "image_field": "image",
  "is_submittable": 1,
  "links": [],
- "modified": "2022-06-08 10:53:19.502627",
+ "modified": "2022-06-21 17:13:33.968142",
  "modified_by": "Administrator",
  "module": "Education",
- "name": "Program Enrollment",
+ "name": "Class Enrollment",
  "owner": "Administrator",
  "permissions": [
   {

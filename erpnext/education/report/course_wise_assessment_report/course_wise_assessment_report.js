@@ -18,9 +18,9 @@ frappe.query_reports["Course wise Assessment Report"] = {
 		},
 		{
 			"fieldname":"course",
-			"label": __("Course"),
+			"label": __("Subject"),
 			"fieldtype": "Link",
-			"options": "Course",
+			"options": "Subject",
 			"reqd": 1
 		},
 		{

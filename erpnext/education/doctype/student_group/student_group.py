@@ -99,7 +99,6 @@ def get_students(
 	enrolled_students = get_program_enrollment(
 		academic_year, academic_term, program, batch, student_category, course
 	)
-
 	if enrolled_students:
 		student_list = []
 		for s in enrolled_students:

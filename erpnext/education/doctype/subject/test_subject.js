@@ -6,7 +6,7 @@ QUnit.test('test course', function(assert) {
 	let done = assert.async();
 	frappe.run_serially([
 		() => {
-			return frappe.tests.make('Course', [
+			return frappe.tests.make('Subject', [
 				{course_name: 'Test_Subject'},
 				{course_code: 'Test_Sub'},
 				{department: 'Test Department'},
@@ -22,8 +22,8 @@ QUnit.test('test course', function(assert) {
 			]);
 		},
 		() => {
-			assert.ok(cur_frm.doc.course_name == 'Test_Subject', 'Course name correctly set');
-			assert.ok(cur_frm.doc.course_code == 'Test_Sub', 'Course code correctly set');
+			assert.ok(cur_frm.doc.course_name == 'Test_Subject', 'Subject name correctly set');
+			assert.ok(cur_frm.doc.course_code == 'Test_Sub', 'Subject code correctly set');
 			assert.ok(cur_frm.doc.department == 'Test Department', 'Department selected correctly');
 			assert.ok(cur_frm.doc.course_abbreviation == 'Test_Sub');
 			assert.ok(cur_frm.doc.course_intro == 'Test Subject Intro');

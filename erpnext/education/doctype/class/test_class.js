@@ -1,13 +1,13 @@
 // Testing Setup Module in education
 QUnit.module('education');
 
-QUnit.test('Test: Program', function(assert){
+QUnit.test('Test: Class', function(assert){
 	assert.expect(6);
 	let done = assert.async();
 	let fee_structure_code;
 	frappe.run_serially([
 		() => {
-			return frappe.tests.make('Program', [
+			return frappe.tests.make('Class', [
 				{program_name: 'Standard Test'},
 				{program_code: 'Standard Test'},
 				{department: 'Test Department'},

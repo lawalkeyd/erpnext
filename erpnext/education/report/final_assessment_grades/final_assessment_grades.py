@@ -40,10 +40,10 @@ def execute(filters=None):
 				scrub_course = frappe.scrub(course)
 				if assessment_group in assessment_result[student][course]:
 					student_row["grade_" + scrub_course] = assessment_result[student][course][assessment_group][
-						"Total Score"
+						"Final Grade"
 					]["grade"]
 					student_row["score_" + scrub_course] = assessment_result[student][course][assessment_group][
-						"Total Score"
+						"Final Grade"
 					]["score"]
 
 					# create the list of possible grades

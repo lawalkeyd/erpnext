@@ -3,6 +3,6 @@
 
 cur_frm.add_fetch('fee_structure', 'total_amount', 'amount');
 
-frappe.ui.form.on("Program", "refresh", function(frm) {
+frappe.ui.form.on("Class", "refresh", function(frm) {
 
 });

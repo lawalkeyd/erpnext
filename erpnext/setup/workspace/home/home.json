@@ -1,6 +1,10 @@
 {
  "category": "Modules",
- "charts": [],
+ "charts": [
+  {
+   "chart_name": "Attendance Count"
+  }
+ ],
  "creation": "2020-01-23 13:46:38.833076",
  "developer_mode_only": 0,
  "disable_user_customization": 0,
@@ -17,7 +21,7 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Accounting",
+   "label": "Class",
    "onboard": 0,
    "type": "Card Break"
   },
@@ -25,8 +29,8 @@
    "dependencies": "",
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Chart of Accounts",
-   "link_to": "Account",
+   "label": "Class",
+   "link_to": "Class",
    "link_type": "DocType",
    "onboard": 1,
    "type": "Link"
@@ -35,8 +39,8 @@
    "dependencies": "",
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Company",
-   "link_to": "Company",
+   "label": "Class Enrollment",
+   "link_to": "Class Enrollment",
    "link_type": "DocType",
    "onboard": 1,
    "type": "Link"
@@ -45,8 +49,8 @@
    "dependencies": "",
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Customer",
-   "link_to": "Customer",
+   "label": "Subject",
+   "link_to": "Subject",
    "link_type": "DocType",
    "onboard": 1,
    "type": "Link"
@@ -55,55 +59,8 @@
    "dependencies": "",
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Supplier",
-   "link_to": "Supplier",
-   "link_type": "DocType",
-   "onboard": 1,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Stock",
-   "onboard": 0,
-   "type": "Card Break"
-  },
-  {
-   "dependencies": "",
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Item",
-   "link_to": "Item",
-   "link_type": "DocType",
-   "onboard": 1,
-   "type": "Link"
-  },
-  {
-   "dependencies": "",
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Warehouse",
-   "link_to": "Warehouse",
-   "link_type": "DocType",
-   "onboard": 1,
-   "type": "Link"
-  },
-  {
-   "dependencies": "",
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Brand",
-   "link_to": "Brand",
-   "link_type": "DocType",
-   "onboard": 1,
-   "type": "Link"
-  },
-  {
-   "dependencies": "",
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Unit of Measure (UOM)",
-   "link_to": "UOM",
+   "label": "Subject Enrollment",
+   "link_to": "Program Enrollment Course",
    "link_type": "DocType",
    "onboard": 1,
    "type": "Link"
@@ -158,7 +115,7 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "CRM",
+   "label": "LMS",
    "onboard": 0,
    "type": "Card Break"
   },
@@ -166,8 +123,8 @@
    "dependencies": "",
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Lead",
-   "link_to": "Lead",
+   "label": "Subject Activity",
+   "link_to": "Course Activity",
    "link_type": "DocType",
    "onboard": 1,
    "type": "Link"
@@ -176,8 +133,25 @@
    "dependencies": "",
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Customer Group",
-   "link_to": "Customer Group",
+   "label": "Quiz Activity",
+   "link_to": "Quiz Activity",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Accounting",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Chart of Accounts",
+   "link_to": "Account",
    "link_type": "DocType",
    "onboard": 1,
    "type": "Link"
@@ -186,8 +160,8 @@
    "dependencies": "",
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Territory",
-   "link_to": "Territory",
+   "label": "Company",
+   "link_to": "Company",
    "link_type": "DocType",
    "onboard": 1,
    "type": "Link"
@@ -250,7 +224,7 @@
    "type": "Link"
   }
  ],
- "modified": "2021-04-19 15:48:44.089927",
+ "modified": "2022-06-30 16:28:33.550689",
  "modified_by": "Administrator",
  "module": "Setup",
  "name": "Home",
@@ -259,29 +233,24 @@
  "pin_to_top": 1,
  "shortcuts": [
   {
-   "label": "Item",
-   "link_to": "Item",
+   "label": "Class",
+   "link_to": "Class",
    "type": "DocType"
   },
   {
-   "label": "Customer",
-   "link_to": "Customer",
+   "label": "Subject",
+   "link_to": "Subject",
    "type": "DocType"
   },
   {
-   "label": "Supplier",
-   "link_to": "Supplier",
+   "label": "Student",
+   "link_to": "Student",
    "type": "DocType"
   },
   {
-   "label": "Sales Invoice",
-   "link_to": "Sales Invoice",
-   "type": "DocType"
-  },
-  {
-   "label": "Leaderboard",
-   "link_to": "leaderboard",
-   "type": "Page"
+   "label": "Education Dashboard",
+   "link_to": "Education",
+   "type": "Dashboard"
   }
  ]
 }

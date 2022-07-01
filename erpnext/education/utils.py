@@ -97,17 +97,16 @@ def get_portal_programs():
 	Returns:
 	        list of dictionary: List of all programs and to be displayed on the portal along with access rights
 	"""
-	published_programs = frappe.get_all("Program", filters={"is_published": True})
+	published_programs = frappe.get_all("Class", filters={"is_published": True})
 	if not published_programs:
 		return None
 
-	program_list = [frappe.get_doc("Program", program) for program in published_programs]
+	program_list = [frappe.get_doc("Class", program) for program in published_programs]
 	portal_programs = [
 		{"program": program, "has_access": allowed_program_access(program.name)}
 		for program in program_list
 		if allowed_program_access(program.name) or program.allow_self_enroll
 	]
-
 	return portal_programs
 
 
@@ -144,7 +143,7 @@ def get_enrollment(master, document, student):
 	"""
 	if master == "program":
 		enrollments = frappe.get_all(
-			"Program Enrollment", filters={"student": student, "program": document, "docstatus": 1}
+			"Class Enrollment", filters={"student": student, "program": document, "docstatus": 1}
 		)
 	if master == "course":
 		enrollments = frappe.get_all(
@@ -300,6 +299,7 @@ def get_topic_progress(topic, course_name, program):
 	if not student:
 		return None
 	course_enrollment = get_or_create_course_enrollment(course_name, program)
+	print("courseeeeeeeeeee", course_enrollment)
 	progress = student.get_topic_progress(course_enrollment.name, topic)
 	if not progress:
 		return None
@@ -404,6 +404,9 @@ def create_student_from_current_user():
 
 def get_or_create_course_enrollment(course, program):
 	student = get_current_student()
+	print("stuuuudddnnn", student)
+	print("coooouurrse", course)
+	print("proooggram", program)
 	course_enrollment = get_enrollment("course", course, student.name)
 	if not course_enrollment:
 		program_enrollment = get_enrollment("program", program.name, student.name)

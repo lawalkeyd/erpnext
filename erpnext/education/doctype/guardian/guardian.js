@@ -3,7 +3,7 @@
 
 frappe.ui.form.on('Guardian', {
 	refresh: function(frm) {
-		if(!frm.doc.user && !frm.is_new()) {
+		if(!frm.doc.user && frm.doc.is_new()) {
 			frm.add_custom_button(__("Invite as User"), function() {
 				return frappe.call({
 					method: "erpnext.education.doctype.guardian.guardian.invite_guardian",

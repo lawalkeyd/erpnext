@@ -12,7 +12,7 @@ from frappe.utils import add_days, getdate
 from erpnext.education.utils import OverlapError
 
 
-class CourseSchedulingTool(Document):
+class SubjectSchedulingTool(Document):
 	@frappe.whitelist()
 	def schedule_course(self):
 		"""Creates course schedules as per specified parameters"""

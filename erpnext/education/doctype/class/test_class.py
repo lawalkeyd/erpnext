@@ -9,8 +9,8 @@ from erpnext.education.doctype.course.test_course import make_course, make_cours
 from erpnext.education.doctype.topic.test_topic import make_topic_and_linked_content
 
 test_data = {
-	"program_name": "_Test Program",
-	"description": "_Test Program",
+	"class_name": "_Test Class",
+	"description": "_Test Class",
 	"course": [
 		{
 			"course_name": "_Test Course 1",
@@ -35,51 +35,51 @@ test_data = {
 }
 
 
-class TestProgram(unittest.TestCase):
+class TestClass(unittest.TestCase):
 	def setUp(self):
-		make_program_and_linked_courses("_Test Program 1", ["_Test Course 1", "_Test Course 2"])
+		make_class_and_linked_courses("_Test Class 1", ["_Test Course 1", "_Test Course 2"])
 
 	def test_get_course_list(self):
-		program = frappe.get_doc("Program", "_Test Program 1")
-		course = program.get_course_list()
+		class = frappe.get_doc("Class", "_Test Class 1")
+		course = class.get_course_list()
 		self.assertEqual(course[0].name, "_Test Course 1")
 		self.assertEqual(course[1].name, "_Test Course 2")
 		frappe.db.rollback()
 
 	def tearDown(self):
-		for dt in ["Program", "Course", "Topic", "Article"]:
+		for dt in ["Class", "Course", "Topic", "Article"]:
 			for entry in frappe.get_all(dt):
-				frappe.delete_doc(dt, entry.program)
+				frappe.delete_doc(dt, entry.class)
 
 
-def make_program(name):
-	program = frappe.get_doc(
+def make_class(name):
+	class = frappe.get_doc(
 		{
-			"doctype": "Program",
-			"program_name": name,
-			"program_code": name,
+			"doctype": "Class",
+			"class_name": name,
+			"class_code": name,
 			"description": "_test description",
 			"is_published": True,
 			"is_featured": True,
 		}
 	).insert()
-	return program.name
+	return class.name
 
 
-def make_program_and_linked_courses(program_name, course_name_list):
+def make_class_and_linked_courses(class_name, course_name_list):
 	try:
-		program = frappe.get_doc("Program", program_name)
+		class = frappe.get_doc("Class", class_name)
 	except frappe.DoesNotExistError:
-		make_program(program_name)
-		program = frappe.get_doc("Program", program_name)
+		make_class(class_name)
+		class = frappe.get_doc("Class", class_name)
 	course_list = [make_course(course_name) for course_name in course_name_list]
 	for course in course_list:
-		program.append("courses", {"course": course, "required": 1})
-	program.save()
-	return program
+		class.append("courses", {"course": course, "required": 1})
+	class.save()
+	return class
 
 
-def setup_program():
+def setup_class():
 	topic_list = [course["topic"] for course in test_data["course"]]
 	for topic in topic_list[0]:
 		make_topic_and_linked_content(topic["topic_name"], topic["content"])
@@ -92,5 +92,5 @@ def setup_program():
 		make_course_and_linked_topic(course["course"], course["topic"])
 
 	course_list = [course["course_name"] for course in test_data["course"]]
-	program = make_program_and_linked_courses(test_data["program_name"], course_list)
-	return program
+	class = make_class_and_linked_courses(test_data["class_name"], course_list)
+	return class
