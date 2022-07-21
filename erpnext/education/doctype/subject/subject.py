@@ -34,7 +34,7 @@ class Subject(Document):
 def add_subject_to_programs(subject, programs, mandatory=False):
 	programs = json.loads(programs)
 	for entry in programs:
-		program = frappe.get_doc("Program", entry)
+		program = frappe.get_doc("Class", entry)
 		program.append("subjects", {"subject": subject, "subject_name": subject, "mandatory": mandatory})
 		program.flags.ignore_mandatory = True
 		program.save()

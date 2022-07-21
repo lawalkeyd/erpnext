@@ -35,7 +35,7 @@ frappe.ui.form.on('Subject', {
 				],
 				function(data) {
 					frappe.call({
-						method: 'erpnext.education.doctype.course.course.add_course_to_programs',
+						method: 'erpnext.education.doctype.subject.subject.add_subject_to_programs',
 						args: {
 							'course': frm.doc.name,
 							'programs': data.programs,
