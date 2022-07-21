@@ -51,8 +51,8 @@ def add_subject_to_programs(subject, programs, mandatory=False):
 @frappe.whitelist()
 def get_programs_without_subject(subject):
 	data = []
-	for entry in frappe.db.get_all("Program"):
-		program = frappe.get_doc("Program", entry.name)
+	for entry in frappe.db.get_all("Class"):
+		program = frappe.get_doc("Class", entry.name)
 		subjects = [c.subject for c in program.subjects]
 		if not subjects or subject not in subjects:
 			data.append(program.name)

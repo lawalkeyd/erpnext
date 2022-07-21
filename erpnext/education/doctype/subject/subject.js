@@ -37,7 +37,7 @@ frappe.ui.form.on('Subject', {
 					frappe.call({
 						method: 'erpnext.education.doctype.subject.subject.add_subject_to_programs',
 						args: {
-							'course': frm.doc.name,
+							'subject': frm.doc.name,
 							'programs': data.programs,
 							'mandatory': data.mandatory
 						},
@@ -73,7 +73,7 @@ frappe.ui.form.on('Subject Topic', {
 let get_programs_without_course = function(course) {
 	return frappe.call({
 		type: 'GET',
-		method: 'erpnext.education.doctype.course.course.get_programs_without_course',
-		args: {'course': course}
+		method: 'erpnext.education.doctype.subject.subject.get_programs_without_subject',
+		args: {'subject': course}
 	});
 }

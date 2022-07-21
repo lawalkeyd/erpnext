@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "allow_import": 1,
  "allow_rename": 1,
  "autoname": "field:program_name",
@@ -11,7 +12,7 @@
   "column_break_3",
   "program_abbreviation",
   "section_break_courses",
-  "courses",
+  "subjects",
   "section_break_5",
   "is_published",
   "allow_self_enroll",
@@ -52,12 +53,6 @@
    "fieldname": "section_break_5",
    "fieldtype": "Section Break",
    "label": "Portal Settings"
-  },
-  {
-   "fieldname": "courses",
-   "fieldtype": "Table",
-   "label": "Courses",
-   "options": "Program Course"
   },
   {
    "depends_on": "is_published",
@@ -105,10 +100,17 @@
   {
    "fieldname": "column_break_11",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "subjects",
+   "fieldtype": "Table",
+   "label": "Subjects",
+   "options": "Program Course"
   }
  ],
  "image_field": "hero_image",
- "modified": "2019-06-12 12:31:14.999346",
+ "links": [],
+ "modified": "2022-07-21 17:37:50.367965",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Class",
