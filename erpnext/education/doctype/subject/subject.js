@@ -1,7 +1,7 @@
 frappe.ui.form.on('Subject', {
 	refresh: function(frm) {
 		if (!cur_frm.doc.__islocal) {
-			frm.add_custom_button(__('Add to Programs'), function() {
+			frm.add_custom_button(__('Add to Classes'), function() {
 				frm.trigger('add_course_to_programs')
 			}, __('Action'));
 		}
