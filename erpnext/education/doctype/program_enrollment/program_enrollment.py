@@ -172,12 +172,12 @@ def get_program_courses(doctype, txt, searchfield, start, page_len, filters):
 		return []
 
 	return frappe.db.sql(
-		"""select course, course_name from `tabProgram Course`
-		where  parent = %(program)s and course like %(txt)s {match_cond}
+		"""select subject, course_name from `tabProgram Course`
+		where  parent = %(program)s and subject like %(txt)s {match_cond}
 		order by
-			if(locate(%(_txt)s, course), locate(%(_txt)s, course), 99999),
+			if(locate(%(_txt)s, subject), locate(%(_txt)s, subject), 99999),
 			idx desc,
-			`tabProgram Course`.course asc
+			`tabProgram Course`.subject asc
 		limit {start}, {page_len}""".format(
 			match_cond=get_match_cond(doctype), start=start, page_len=page_len
 		),
