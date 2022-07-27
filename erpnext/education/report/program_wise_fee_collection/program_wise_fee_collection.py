@@ -20,10 +20,10 @@ def execute(filters=None):
 def get_columns(filters=None):
 	return [
 		{
-			"label": _("Program"),
-			"fieldname": "program",
+			"label": _("Class"),
+			"fieldname": "class",
 			"fieldtype": "Link",
-			"options": "Program",
+			"options": "Class",
 			"width": 300,
 		},
 		{
