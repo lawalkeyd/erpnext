@@ -15,7 +15,7 @@ def get_context(context):
 
 	context.education_settings = frappe.get_single("Education Settings")
 	context.program = get_program(program)
-	context.courses = [frappe.get_doc("Subject", course.course) for course in context.program.courses]
+	context.courses = [frappe.get_doc("Subject", course.subject) for course in context.program.subjects]
 	context.has_access = utils.allowed_program_access(program)
 	context.progress = get_course_progress(context.courses, context.program)
 

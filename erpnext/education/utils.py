@@ -79,6 +79,7 @@ def get_current_student():
 	Returns:
 	        object: Student Document
 	"""
+	print("getting current student")
 	email = frappe.session.user
 	if email in ("Administrator", "Guest"):
 		return None
@@ -124,6 +125,7 @@ def allowed_program_access(program, student=None):
 		return True
 	if not student:
 		student = get_current_student()
+	print("syudenti", student)
 	if student and get_enrollment("program", program, student.name):
 		return True
 	else:
@@ -299,7 +301,6 @@ def get_topic_progress(topic, course_name, program):
 	if not student:
 		return None
 	course_enrollment = get_or_create_course_enrollment(course_name, program)
-	print("courseeeeeeeeeee", course_enrollment)
 	progress = student.get_topic_progress(course_enrollment.name, topic)
 	if not progress:
 		return None
@@ -404,9 +405,6 @@ def create_student_from_current_user():
 
 def get_or_create_course_enrollment(course, program):
 	student = get_current_student()
-	print("stuuuudddnnn", student)
-	print("coooouurrse", course)
-	print("proooggram", program)
 	course_enrollment = get_enrollment("course", course, student.name)
 	if not course_enrollment:
 		program_enrollment = get_enrollment("program", program.name, student.name)

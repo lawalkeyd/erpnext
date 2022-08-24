@@ -24,8 +24,5 @@ def get_context(context):
 
 
 def get_topic_progress(topics, course, program):
-	print("topics", topics)
-	print("course", course)
-	print("program", program)
 	progress = {topic.name: utils.get_topic_progress(topic, course.name, program) for topic in topics}
 	return progress
