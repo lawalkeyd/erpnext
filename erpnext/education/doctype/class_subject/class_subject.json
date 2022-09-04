@@ -1,0 +1,50 @@
+{
+ "actions": [],
+ "creation": "2015-09-07 14:37:01.886859",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "subject",
+  "course_name",
+  "required"
+ ],
+ "fields": [
+  {
+   "fetch_from": "course.course_name",
+   "fieldname": "course_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Course Name",
+   "read_only": 1
+  },
+  {
+   "default": "1",
+   "fieldname": "required",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Mandatory"
+  },
+  {
+   "fieldname": "subject",
+   "fieldtype": "Link",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "label": "Course",
+   "options": "Subject",
+   "reqd": 1
+  }
+ ],
+ "istable": 1,
+ "links": [],
+ "modified": "2022-07-22 09:55:20.086561",
+ "modified_by": "Administrator",
+ "module": "Education",
+ "name": "Class Subject",
+ "owner": "Administrator",
+ "permissions": [],
+ "restrict_to_domain": "Education",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

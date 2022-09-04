@@ -22,7 +22,7 @@
    "fieldname": "based_on",
    "fieldtype": "Select",
    "label": "Based On",
-   "options": "Student Group\nCourse Schedule"
+   "options": "Student Group\nSubject Schedule"
   },
   {
    "default": "Batch",
@@ -30,7 +30,7 @@
    "fieldname": "group_based_on",
    "fieldtype": "Select",
    "label": "Group Based On",
-   "options": "Batch\nCourse\nActivity"
+   "options": "Batch\nSubject\nActivity"
   },
   {
    "fieldname": "column_break_2",
@@ -50,8 +50,8 @@
    "fieldname": "course_schedule",
    "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Course Schedule",
-   "options": "Course Schedule",
+   "label": "f Schedule",
+   "options": "Subject Schedule",
    "reqd": 1
   },
   {
@@ -93,7 +93,7 @@
  "hide_toolbar": 1,
  "issingle": 1,
  "links": [],
- "modified": "2020-10-23 17:52:28.078971",
+ "modified": "2022-09-02 14:52:43.787928",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Student Attendance Tool",

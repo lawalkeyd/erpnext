@@ -119,7 +119,7 @@
    "fieldname": "courses",
    "fieldtype": "Table",
    "label": "Courses",
-   "options": "Program Enrollment Course"
+   "options": "Class Enrollment Subject"
   },
   {
    "collapsible": 1,
@@ -176,7 +176,7 @@
  "image_field": "image",
  "is_submittable": 1,
  "links": [],
- "modified": "2022-06-21 17:13:33.968142",
+ "modified": "2022-09-02 12:50:56.720526",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Class Enrollment",

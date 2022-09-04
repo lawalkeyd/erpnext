@@ -105,12 +105,12 @@
    "fieldname": "subjects",
    "fieldtype": "Table",
    "label": "Subjects",
-   "options": "Program Course"
+   "options": "Class Subject"
   }
  ],
  "image_field": "hero_image",
  "links": [],
- "modified": "2022-07-21 17:37:50.367965",
+ "modified": "2022-09-02 15:33:52.716314",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Class",

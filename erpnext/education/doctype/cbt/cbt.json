@@ -1,0 +1,163 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "allow_rename": 1,
+ "autoname": "format:title-{assessment_plan}",
+ "creation": "2022-09-04 21:53:57.441432",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "title",
+  "assessment_plan",
+  "question",
+  "quiz_configuration_section",
+  "passing_score",
+  "max_attempts",
+  "grading_basis",
+  "column_break_7",
+  "is_time_bound",
+  "duration",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "assessment_plan",
+   "fieldtype": "Link",
+   "label": "Assessment Plan",
+   "options": "Assessment Plan",
+   "reqd": 1
+  },
+  {
+   "fieldname": "question",
+   "fieldtype": "Table",
+   "label": "Question",
+   "options": "Quiz Question",
+   "reqd": 1
+  },
+  {
+   "fieldname": "quiz_configuration_section",
+   "fieldtype": "Section Break",
+   "label": "Quiz Configuration"
+  },
+  {
+   "default": "75",
+   "description": "Score out of 100",
+   "fieldname": "passing_score",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Passing Score",
+   "reqd": 1
+  },
+  {
+   "default": "1",
+   "description": "Enter 0 to waive limit",
+   "fieldname": "max_attempts",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Max Attempts",
+   "reqd": 1
+  },
+  {
+   "default": "Latest Highest Score",
+   "fieldname": "grading_basis",
+   "fieldtype": "Select",
+   "label": "Grading Basis",
+   "options": "Latest Highest Score\nLatest Attempt"
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_time_bound",
+   "fieldtype": "Check",
+   "label": "Is Time-Bound"
+  },
+  {
+   "depends_on": "is_time_bound",
+   "fieldname": "duration",
+   "fieldtype": "Duration",
+   "label": "Duration"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "CBT",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2022-09-04 21:53:57.441432",
+ "modified_by": "Administrator",
+ "module": "Education",
+ "name": "CBT",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Academics User",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "LMS User",
+   "share": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Instructor",
+   "select": 1,
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Education Manager",
+   "select": 1,
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1,
+ "track_views": 1
+}

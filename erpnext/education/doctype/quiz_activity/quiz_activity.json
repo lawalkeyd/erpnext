@@ -28,7 +28,7 @@
    "fieldname": "enrollment",
    "fieldtype": "Link",
    "label": "Enrollment",
-   "options": "Course Enrollment",
+   "options": "Subject Enrollment",
    "set_only_once": 1
   },
   {
@@ -116,7 +116,7 @@
   }
  ],
  "links": [],
- "modified": "2022-06-14 16:42:37.120851",
+ "modified": "2022-09-02 14:50:23.821664",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Quiz Activity",

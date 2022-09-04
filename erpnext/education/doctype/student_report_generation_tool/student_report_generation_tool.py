@@ -88,7 +88,7 @@ def get_courses_criteria(courses):
 		course_criteria[course] = [
 			d.assessment_criteria
 			for d in frappe.get_all(
-				"Course Assessment Criteria", fields=["assessment_criteria"], filters={"parent": course}
+				"Subject Assessment Criteria", fields=["assessment_criteria"], filters={"parent": course}
 			)
 		]
 	return course_criteria

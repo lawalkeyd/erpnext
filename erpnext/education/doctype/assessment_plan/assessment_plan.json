@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_import": 1,
- "autoname": "EDU-ASP-.YYYY.-.#####",
+ "autoname": "format:EDU-{assessment_group}-{course}",
  "creation": "2015-11-12 16:34:34.658092",
  "doctype": "DocType",
  "document_type": "Setup",
@@ -77,7 +77,7 @@
    "fieldtype": "Link",
    "in_global_search": 1,
    "in_standard_filter": 1,
-   "label": "Course",
+   "label": "Subject",
    "options": "Subject",
    "reqd": 1
   },
@@ -86,7 +86,7 @@
    "fieldname": "program",
    "fieldtype": "Link",
    "in_global_search": 1,
-   "label": "Program",
+   "label": "Class",
    "options": "Class"
   },
   {
@@ -94,14 +94,16 @@
    "fieldname": "academic_year",
    "fieldtype": "Link",
    "label": "Academic Year",
-   "options": "Academic Year"
+   "options": "Academic Year",
+   "reqd": 1
   },
   {
    "fetch_from": "student_group.academic_term",
    "fieldname": "academic_term",
    "fieldtype": "Link",
    "label": "Academic Term",
-   "options": "Academic Term"
+   "options": "Academic Term",
+   "reqd": 1
   },
   {
    "fieldname": "section_break_5",
@@ -198,7 +200,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-06-21 17:13:24.472953",
+ "modified": "2022-09-04 20:46:19.219905",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Assessment Plan",
