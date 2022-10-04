@@ -8,6 +8,7 @@
   "current_academic_year",
   "current_academic_term",
   "attendance_freeze_date",
+  "next_term_begins",
   "column_break_4",
   "validate_batch",
   "validate_course",
@@ -36,7 +37,7 @@
   {
    "fieldname": "attendance_freeze_date",
    "fieldtype": "Date",
-   "label": "Attendance Freeze Date"
+   "label": "Attendance Freeze Date(Term End Date)"
   },
   {
    "fieldname": "column_break_4",
@@ -103,11 +104,16 @@
    "fieldname": "user_creation_skip",
    "fieldtype": "Check",
    "label": "Skip User creation for new Student"
+  },
+  {
+   "fieldname": "next_term_begins",
+   "fieldtype": "Date",
+   "label": "Next Term Begins"
   }
  ],
  "issingle": 1,
  "links": [],
- "modified": "2020-05-07 19:18:10.639356",
+ "modified": "2022-10-04 07:21:08.334705",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Education Settings",

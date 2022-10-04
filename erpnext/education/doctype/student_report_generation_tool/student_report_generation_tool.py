@@ -2,6 +2,7 @@
 # For license information, please see license.txt
 
 
+from email.mime import image
 import json
 
 import frappe
@@ -40,18 +41,19 @@ def preview_report_card(doc):
 	assessment_result = values.get("assessment_result").get(doc.student)
 	courses = values.get("course_dict")
 	course_criteria = get_courses_criteria(courses)
+	settings = frappe.get_doc('Education Settings')
 
 	# get the assessment group as per the user selection
 	if doc.include_all_assessment:
 		assessment_groups = get_child_assessment_groups(doc.assessment_group)
-	else:
-		assessment_groups = [doc.assessment_group]
+	else: 
+		assessment_groups = [ doc.assessment_group ]
 
 	# get the attendance of the student for that peroid of time.
 	doc.attendance = get_attendance_count(doc.students[0], doc.academic_year, doc.academic_term)
 
 	template = (
-		"erpnext/education/doctype/student_report_generation_tool/student_report_generation_tool.html"
+		"erpnext/education/doctype/student_report_generation_tool/student_report_generation_test.html"
 	)
 	base_template_path = "frappe/www/printview.html"
 
@@ -61,6 +63,9 @@ def preview_report_card(doc):
 		frappe._dict({"letter_head": doc.letterhead}), not doc.add_letterhead
 	)
 
+	instructor_remarks = frappe.db.get_value('Instructor Remarks', {'assessment_group': doc.assessment_group, 'student': doc.student}, ['verbal_skills', 'punctuality', 'mental_alertness', 'neatness', 'politeness', 'honesty', 'peers_relationship', 'comment'], as_dict=1)
+	student_image = frappe.db.get_value('Student', doc.student, 'image')
+
 	html = frappe.render_template(
 		template,
 		{
@@ -69,16 +74,19 @@ def preview_report_card(doc):
 			"courses": courses,
 			"assessment_groups": assessment_groups,
 			"course_criteria": course_criteria,
+			"remarks": instructor_remarks,
 			"letterhead": letterhead and letterhead.get("content", None),
 			"add_letterhead": doc.add_letterhead if doc.add_letterhead else 0,
-		},
+			"student_image": student_image,
+			"settings": settings,
+		}, 
 	)
 	final_template = frappe.render_template(
 		base_template_path, {"body": html, "title": "Report Card"}
 	)
 
 	frappe.response.filename = "Report Card " + doc.students[0] + ".pdf"
-	frappe.response.filecontent = get_pdf(final_template)
+	frappe.response.filecontent = get_pdf(final_template, {"margin-right": "5mm", "margin-left": "5mm"})
 	frappe.response.type = "download"
 
 

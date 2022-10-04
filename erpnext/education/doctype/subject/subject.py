@@ -3,6 +3,7 @@
 
 
 import json
+from logging import raiseExceptions
 
 import frappe
 from frappe import _
@@ -12,6 +13,12 @@ from frappe.model.document import Document
 class Subject(Document):
 	def validate(self):
 		self.validate_assessment_criteria()
+		# self.validate_subject_name()
+	
+	# def validate_subject_name(self):
+	# 	if frappe.db.exists("Student", {"course_name": self.course_name, "class": self.class}):
+	# 		frappe.throw(_("This Subject already exists"))
+
 
 	def validate_assessment_criteria(self):
 		if self.assessment_criteria:

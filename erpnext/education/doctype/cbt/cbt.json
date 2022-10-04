@@ -2,15 +2,14 @@
  "actions": [],
  "allow_import": 1,
  "allow_rename": 1,
- "autoname": "format:title-{assessment_plan}",
+ "autoname": "format:{title}-{DD}-{MM}-{YY}",
  "creation": "2022-09-04 21:53:57.441432",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
   "title",
-  "assessment_plan",
-  "question",
+  "questions",
   "quiz_configuration_section",
   "passing_score",
   "max_attempts",
@@ -27,20 +26,6 @@
    "label": "Title",
    "reqd": 1,
    "unique": 1
-  },
-  {
-   "fieldname": "assessment_plan",
-   "fieldtype": "Link",
-   "label": "Assessment Plan",
-   "options": "Assessment Plan",
-   "reqd": 1
-  },
-  {
-   "fieldname": "question",
-   "fieldtype": "Table",
-   "label": "Question",
-   "options": "Quiz Question",
-   "reqd": 1
   },
   {
    "fieldname": "quiz_configuration_section",
@@ -96,11 +81,18 @@
    "options": "CBT",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "questions",
+   "fieldtype": "Table",
+   "label": "Question",
+   "options": "CBT Question",
+   "reqd": 1
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-09-04 21:53:57.441432",
+ "modified": "2022-10-04 08:45:47.312828",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "CBT",

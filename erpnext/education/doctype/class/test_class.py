@@ -40,8 +40,8 @@ class TestClass(unittest.TestCase):
 		make_class_and_linked_courses("_Test Class 1", ["_Test Course 1", "_Test Course 2"])
 
 	def test_get_course_list(self):
-		class = frappe.get_doc("Class", "_Test Class 1")
-		course = class.get_course_list()
+		student_class = frappe.get_doc("Class", "_Test Class 1")
+		course = student_class.get_course_list()
 		self.assertEqual(course[0].name, "_Test Course 1")
 		self.assertEqual(course[1].name, "_Test Course 2")
 		frappe.db.rollback()

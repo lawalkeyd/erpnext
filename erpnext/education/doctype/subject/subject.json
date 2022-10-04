@@ -24,8 +24,7 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Course Name",
-   "reqd": 1,
-   "unique": 1
+   "reqd": 1
   },
   {
    "fieldname": "department",
@@ -85,7 +84,7 @@
  ],
  "image_field": "hero_image",
  "links": [],
- "modified": "2022-09-04 20:49:21.918830",
+ "modified": "2022-10-04 08:23:48.864368",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Subject",

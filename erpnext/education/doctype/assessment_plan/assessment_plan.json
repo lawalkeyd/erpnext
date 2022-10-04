@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_import": 1,
- "autoname": "format:EDU-{assessment_group}-{course}",
+ "autoname": "format:EDU-{course}-{assessment_group}",
  "creation": "2015-11-12 16:34:34.658092",
  "doctype": "DocType",
  "document_type": "Setup",
@@ -29,7 +29,9 @@
   "section_break_20",
   "maximum_assessment_score",
   "assessment_criteria",
-  "amended_from"
+  "amended_from",
+  "cbt_section",
+  "cbt"
  ],
  "fields": [
   {
@@ -196,11 +198,22 @@
    "options": "Assessment Plan",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "cbt_section",
+   "fieldtype": "Section Break",
+   "label": "CBT"
+  },
+  {
+   "fieldname": "cbt",
+   "fieldtype": "Link",
+   "label": "CBT",
+   "options": "CBT"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-09-04 20:46:19.219905",
+ "modified": "2022-09-06 18:37:45.730345",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Assessment Plan",
