@@ -38,6 +38,8 @@ def preview_report_card(doc):
 	values = get_formatted_result(
 		doc, get_course=True, get_all_assessment_groups=doc.include_all_assessment
 	)
+	grading_scale_name = frappe.db.get_value('Class', doc.program, 'grading_scale')
+	grading_scale = frappe.get_doc('Grading Scale', grading_scale_name)
 	assessment_result = values.get("assessment_result").get(doc.student)
 	courses = values.get("course_dict")
 	course_criteria = get_courses_criteria(courses)
@@ -53,7 +55,7 @@ def preview_report_card(doc):
 	doc.attendance = get_attendance_count(doc.students[0], doc.academic_year, doc.academic_term)
 
 	template = (
-		"erpnext/education/doctype/student_report_generation_tool/student_report_generation_test.html"
+		"erpnext/education/doctype/student_report_generation_tool/student_report_generation_test2.html"
 	)
 	base_template_path = "frappe/www/printview.html"
 
@@ -79,6 +81,7 @@ def preview_report_card(doc):
 			"add_letterhead": doc.add_letterhead if doc.add_letterhead else 0,
 			"student_image": student_image,
 			"settings": settings,
+			"grading_scale": grading_scale
 		}, 
 	)
 	final_template = frappe.render_template(

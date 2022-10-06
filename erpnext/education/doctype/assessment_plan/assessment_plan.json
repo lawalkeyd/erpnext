@@ -89,7 +89,8 @@
    "fieldtype": "Link",
    "in_global_search": 1,
    "label": "Class",
-   "options": "Class"
+   "options": "Class",
+   "reqd": 1
   },
   {
    "fetch_from": "student_group.academic_year",
@@ -213,7 +214,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-09-06 18:37:45.730345",
+ "modified": "2022-10-05 15:50:50.505855",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Assessment Plan",

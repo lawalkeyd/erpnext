@@ -49,11 +49,11 @@ class TestClass(unittest.TestCase):
 	def tearDown(self):
 		for dt in ["Class", "Course", "Topic", "Article"]:
 			for entry in frappe.get_all(dt):
-				frappe.delete_doc(dt, entry.class)
+				frappe.delete_doc(dt, entry)
 
 
 def make_class(name):
-	class = frappe.get_doc(
+	student_class = frappe.get_doc(
 		{
 			"doctype": "Class",
 			"class_name": name,
@@ -63,20 +63,20 @@ def make_class(name):
 			"is_featured": True,
 		}
 	).insert()
-	return class.name
+	return student_class.name
 
 
 def make_class_and_linked_courses(class_name, course_name_list):
 	try:
-		class = frappe.get_doc("Class", class_name)
+		student_class = frappe.get_doc("Class", class_name)
 	except frappe.DoesNotExistError:
 		make_class(class_name)
-		class = frappe.get_doc("Class", class_name)
+		student_class = frappe.get_doc("Class", class_name)
 	course_list = [make_course(course_name) for course_name in course_name_list]
 	for course in course_list:
-		class.append("courses", {"course": course, "required": 1})
-	class.save()
-	return class
+		student_class.append("courses", {"course": course, "required": 1})
+	student_class.save()
+	return student_class
 
 
 def setup_class():
@@ -92,5 +92,5 @@ def setup_class():
 		make_course_and_linked_topic(course["course"], course["topic"])
 
 	course_list = [course["course_name"] for course in test_data["course"]]
-	class = make_class_and_linked_courses(test_data["class_name"], course_list)
-	return class
+	student_class = make_class_and_linked_courses(test_data["class_name"], course_list)
+	return student_class

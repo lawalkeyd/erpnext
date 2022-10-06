@@ -9,9 +9,9 @@
  "field_order": [
   "program_name",
   "department",
-  "column_break_3",
   "program_abbreviation",
   "section_break_courses",
+  "grading_scale",
   "subjects",
   "section_break_5",
   "is_published",
@@ -38,10 +38,6 @@
    "in_standard_filter": 1,
    "label": "Department",
    "options": "Department"
-  },
-  {
-   "fieldname": "column_break_3",
-   "fieldtype": "Column Break"
   },
   {
    "fieldname": "program_abbreviation",
@@ -95,7 +91,7 @@
   {
    "fieldname": "section_break_courses",
    "fieldtype": "Section Break",
-   "label": "Courses"
+   "label": "Subjects"
   },
   {
    "fieldname": "column_break_11",
@@ -106,11 +102,18 @@
    "fieldtype": "Table",
    "label": "Subjects",
    "options": "Class Subject"
+  },
+  {
+   "fieldname": "grading_scale",
+   "fieldtype": "Link",
+   "label": "Grading Scale",
+   "options": "Grading Scale",
+   "reqd": 1
   }
  ],
  "image_field": "hero_image",
  "links": [],
- "modified": "2022-09-02 15:33:52.716314",
+ "modified": "2022-10-05 15:54:45.258827",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Class",

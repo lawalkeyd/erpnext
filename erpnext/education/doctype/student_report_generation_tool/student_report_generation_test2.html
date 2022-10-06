@@ -191,12 +191,12 @@ table td div {
 /* Dew - added styling */
 
 p, label, td {
-  font-size: 8px;
+  font-size: 10px;
 }
 
-.tick {
-	font-size: 9px; 
-	color: #b10025;
+.rating-star {
+	font-size: 100%; 
+	color: orange;
 }
 
 .print-heading-container {
@@ -253,137 +253,70 @@ p, label, td {
 
 	<div id="header-html" class="hidden-pdf">
 		<div class="row print-heading-container">
-			<div class="col-xs-6">
+			<div class="col-xs-3">
 				{% if letterhead and add_letterhead %}
 				<div class="mb-2">{{ letterhead }}</div>
 				{% endif %}
 			</div>
 	
 			<div class="col-xs-6 print-heading">
-				<h2>{{ _("Student Report Card") }}<br>
+				<h2 class="text-center">{{ _("Student Report Card") }}<br>
 				<small>{{ doc.student_name }}</small>
 				</h2>
 			</div>
+
+			<div class="col-xs-3 print-heading">
+				<img src="{{ student_image }}" alt="" class="student-image" srcset="">
+			</div>
 		</div>
 	</div>
 
-	<div class="row table-bordered student-info-section">
-		<div class="col-xs-5 column-break">
-			<div class="row data-field">
-				<div class="col-xs-5">
-					<label>{{ _("Student ID: ") }}</label>
-				</div>
-				<div class="col-xs-7">
-					{{ doc.students[0] }}
-					&starf;
-				</div>
-			</div>
+	<table class="table table-bordered student-info-section">
+		<tr>
+			<td class="col-xs-2 column-break">
+				<label>{{ _("Student No: ") }}</label>
+			</td>
+	
+			<td class="col-xs-4 column-break" colspan="2">
+				<label>{{ _("Student Name: ") }}</label>
+			</td>
+			
+			<td class="col-xs-2 column-break">
+				<label>{{ _("Subject: ") }}</label>
+			</td>	
+	
+			<td class="col-xs-2 column-break">
+				<label>{{ _("Academic Year: ") }}</label>
+			</td>	
+	
+			<td class="col-xs-2 column-break">
+				<label>{{ _("Academic Year: ") }}</label>
+			</td>
+		</tr>
+		<tr>
+			<td class="col-xs-2 column-break">
+				{{ doc.students[0] }}
+			</td>
+	
+			<td class="col-xs-4 column-break" colspan="2">
+				{{ doc.student_name }}
+			</td>
+			
+			<td class="col-xs-2 column-break">
+				{{ doc.program }}
+			</td>	
+	
+			<td class="col-xs-2 column-break">
+				{{ doc.academic_year }}
+			</td>	
+	
+			<td class="col-xs-2 column-break">
+				{{ doc.academic_year }}
+			</td>
+		</tr>	
 
-			<div class="row data-field">
-				<div class="col-xs-5">
-					<label>{{ _("Student Name: ") }}</label>
-				</div>
-				<div class="col-xs-7">
-					{{ doc.student_name }}
-				</div>
-			</div>
 
-			<div class="row data-field">
-				<div class="col-xs-5">
-					<label>{{ _("Program: ") }}</label>
-				</div>
-				<div class="col-xs-7">
-					{{ doc.program }}
-				</div>
-			</div>
-
-			<div class="row data-field">
-				<div class="col-xs-5">
-					<label>{{ _("Batch: ") }}</label>
-				</div>
-				<div class="col-xs-7">
-					{{ doc.student_batch }}
-				</div>
-			</div>
-		</div>
-
-		<div class="col-xs-5 column-break">
-			<div class="row data-field">
-				<div class="col-xs-5">
-					<label>{{ _("Academic Year: ") }}</label>
-				</div>
-				<div class="col-xs-7">
-					{{ doc.academic_year }}
-				</div>
-			</div>
-
-			{% if doc.academic_term %}
-			<div class="row data-field">
-				<div class="col-xs-5">
-					<label>{{ _("Academic Term: ") }}</label>
-				</div>
-				<div class="col-xs-7">
-					{{ doc.academic_term }}
-				</div>
-			</div>
-			{% endif %}
-
-			<div class="row data-field">
-				<div class="col-xs-5">
-					<label>{{ _("Assessment Group: ") }}</label>
-				</div>
-				<div class="col-xs-7">
-					{{ doc.assessment_group }}
-				</div>
-			</div>
-		</div>
-
-		<div class="col-xs-2">
-			<img src="{{ student_image }}" alt="" class="student-image" srcset="">
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="col-xs-5">
-			<table class="table table-bordered table-condensed">
-			<caption>
-				<h5>1. Student Attendance</h5>
-			</caption>
-			<tr>
-				<td><label>No. of days school opened</label> </td>
-				<td>{{ doc.attendance.get("Present") + doc.attendance.get("Absent") }}</td>
-			</tr>
-			<tr>
-				<td><label>No. of days present</label></td>
-				<td>{{ doc.attendance.get("Present") if doc.attendance.get("Present") != None else '0' }}</td>
-			</tr>
-			<tr>
-				<td><label>No. of days absent</label></td>
-				<td>{{ doc.attendance.get("Absent") }}</td>
-			</tr>
-			</table>
-		</div>
-
-		<div class="col-xs-5 col-xs-offset-2">
-			<table class="table table-bordered table-condensed">
-			<caption>
-				<h5>Admission </h5>
-			</caption>
-				<tr>
-				<td><label>Admission No</label> </td>
-				<td>{{ doc.student }}</td>
-				</tr>
-				<tr>
-				<td><label>Term Ended</label></td>
-				<td>{{ settings.attendance_freeze_date }}</td>
-				</tr>
-				<tr>
-				<td><label>Next Term Begins</label></td>
-				<td>{{ settings.next_term_begins }}</td>
-				</tr>
-			</table>
-		</div>
-	</div>
+	</table>
 
 
 	{% if doc.show_marks | int %}
@@ -395,7 +328,7 @@ p, label, td {
 
 
 	<div class="row section-break pbi_avoid">
-		<div class="col-xs-8 column-break">
+		<div class="col-xs-12 column-break">
 			<table class="table table-bordered table-condensed">
 				<!-- <caption>
 					<div class="row">
@@ -408,7 +341,7 @@ p, label, td {
 					</div>
 				</caption> -->
 				<tr class="table-heading-row">
-					<td style="width: {{ 650//(assessment_groups|length + 1) }}px">{{ _("Assessment Criteria") }}</td>
+					<td style="width: {{ 650//(assessment_groups|length + 1) }}px">{{ _("Subject") }}</td>
 					<td>CA 1</td>
 					<td>CA 2</td>
 					<td>Total</td>
@@ -436,27 +369,123 @@ p, label, td {
 				{% endfor %}
 			</table>
 		</div>
-	<div class="col-xs-4">
+	</div>
+
+	<div class="row section-break pbi_avoid">
+		<div class="col-xs-6">
 			<table class="table table-bordered table-condensed">
 				<tr class="table-heading-row">
 					<td>{{ _("PSYCHOMOTOR SKILLS") }}</td>
-					<td>5</td>
-					<td>4</td>
-					<td>3</td>
-					<td>2</td>
-					<td>1</td>
+					<td colspan="5"> </td>
 				</tr>
 				<tr>
 					<td>Verbal Skills</td>
 					{% for input in range(1, 6) %}
-						{% if input == remarks.verbal_skills %}
-							<td><p class="tick">&#x2714;</p></td>
+						{% if input <= remarks.verbal_skills %}
+							<td><p class="rating-star">&starf;</p></td>
 						{% else %}
 							<td></td>	
 						{% endif %}
 					{% endfor %}
 				</tr>
 			</table>
+			<table class="table table-bordered table-condensed">
+				<tr class="table-heading-row">
+					<td>{{ _("AFFECTIVE DOMAIN") }}</td>
+					<td colspan="5"></td>
+				</tr>
+				<tr>
+					<td>Verbal Skills</td>
+					{% for input in range(1, 6) %}
+						{% if input <= remarks.verbal_skills %}
+							<td><p class="rating-star">&starf;</p></td>
+						{% else %}
+							<td></td>
+						{% endif %}
+					{% endfor %}
+				</tr>
+				<tr>
+					<td>Punctuality</td>
+					{% for input in range(1, 6) %}
+						{% if input <= remarks.punctuality %}
+							<td><p class="rating-star">&starf;</p></td>
+						{% else %}
+							<td></td>
+						{% endif %}
+					{% endfor %}
+				</tr>
+				<tr>
+					<td>Mental Alertness</td>
+					{% for input in range(1, 6) %}
+						{% if input <= remarks.mental_alertness %}
+							<td><p class="rating-star">&starf;</p></td>
+						{% else %}
+							<td></td>
+						{% endif %}
+					{% endfor %}
+				</tr>
+				<tr>
+					<td>Neatness</td>
+					{% for input in range(1, 6) %}
+						{% if input <= remarks.verbal_skills %}
+							<td><p class="rating-star">&starf;</p></td>
+						{% else %}
+							<td></td>
+						{% endif %}
+					{% endfor %}
+				</tr>
+				<tr>
+					<td>Politeness</td>
+					{% for input in range(1, 6) %}
+						{% if input <= remarks.politeness %}
+							<td><p class="rating-star">&starf;</p></td>
+						{% else %}
+							<td></td>
+						{% endif %}
+					{% endfor %}
+				</tr>
+				<tr>
+					<td>Honesty</td>
+					{% for input in range(1, 6) %}
+						{% if input <= remarks.honesty %}
+							<td><p class="rating-star">&starf;</p></td>
+						{% else %}
+							<td></td>
+						{% endif %}
+					{% endfor %}
+				</tr>
+				<tr>
+					<td>Relationship with Peers</td>
+					{% for input in range(1, 6) %}
+						{% if input <= remarks.peers_relationship %}
+							<td><p class="rating-star">&starf;</p></td>
+						{% else %}
+							<td></td>
+						{% endif %}
+					{% endfor %}
+				</tr>
+			</table>
+			<div class="row">
+				<div class="col-xs-6"><label>Overall Position: </label></div>
+				<div class="col-xs-6"><label>Class Position: </label></div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<label>Academic Manager's Comments </label>
+					<p>
+						{{ remarks.comment }}
+					</p>
+				</div>
+				<div class="col-xs-12">
+					<label>Instructor's Comments </label>
+					<p>
+						It has survived not only five centuries, but also the leap into 
+						electronic typesetting, remaining essentially unchanged. 
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-6">
 			<table class="table table-bordered table-condensed">
 				<tr>
 					<td colspan="2">SCALE :</td>
@@ -483,128 +512,35 @@ p, label, td {
 				</tr>
 			</table>
 			<table class="table table-bordered table-condensed">
-				<tr class="table-heading-row">
-					<td>{{ _("AFFECTIVE DOMAIN") }}</td>
-					<td>5</td>
-					<td>4</td>	
-					<td>3</td>
-					<td>2</td>
-					<td>1</td>
+				<tr>
+					<td><label>No. of days school opened</label> </td>
+					<td>{{ doc.attendance.get("Present") + doc.attendance.get("Absent") }}</td>
 				</tr>
 				<tr>
-					<td>Verbal Skills</td>
-					{% for input in range(1, 6) %}
-						{% if input == remarks.verbal_skills %}
-							<td><p class="tick">&#x2714;</p></td>
-						{% else %}
-							<td></td>
-						{% endif %}
+					<td><label>No. of days present</label></td>
+					<td>{{ doc.attendance.get("Present") if doc.attendance.get("Present") != None else '0' }}</td>
+				</tr>
+				<tr>
+					<td><label>No. of days absent</label></td>
+					<td>{{ doc.attendance.get("Absent") }}</td>
+				</tr>
+			</table>
+			<table class="table table-bordered table-condensed">
+				<tr>
+					<td><label>Grade</label></td>
+					{% for grade in grading_scale.intervals %}
+						<td>{{grade.grade_code}}</td>
 					{% endfor %}
 				</tr>
 				<tr>
-					<td>Punctuality</td>
-					{% for input in range(1, 6) %}
-						{% if input == remarks.punctuality %}
-							<td><p class="tick">&#x2714;</p></td>
-						{% else %}
-							<td></td>
-						{% endif %}
-					{% endfor %}
-				</tr>
-				<tr>
-					<td>Mental Alertness</td>
-					{% for input in range(1, 6) %}
-						{% if input == remarks.mental_alertness %}
-							<td><p class="tick">&#x2714;</p></td>
-						{% else %}
-							<td></td>
-						{% endif %}
-					{% endfor %}
-				</tr>
-				<tr>
-					<td>Neatness</td>
-					{% for input in range(1, 6) %}
-						{% if input == remarks.verbal_skills %}
-							<td><p class="tick">&#x2714;</p></td>
-						{% else %}
-							<td></td>
-						{% endif %}
-					{% endfor %}
-				</tr>
-				<tr>
-					<td>Politeness</td>
-					{% for input in range(1, 6) %}
-						{% if input == remarks.politeness %}
-							<td><p class="tick">&#x2714;</p></td>
-						{% else %}
-							<td></td>
-						{% endif %}
-					{% endfor %}
-				</tr>
-				<tr>
-					<td>Honesty</td>
-					{% for input in range(1, 6) %}
-						{% if input == remarks.honesty %}
-							<td><p class="tick">&#x2714;</p></td>
-						{% else %}
-							<td></td>
-						{% endif %}
-					{% endfor %}
-				</tr>
-				<tr>
-					<td>Relationship with Peers</td>
-					{% for input in range(1, 6) %}
-						{% if input == remarks.peers_relationship %}
-							<td><p class="tick">&#x2714;</p></td>
-						{% else %}
-							<td></td>
-						{% endif %}
+					<td><label>Threshold</label></td>
+					{% for grade in grading_scale.intervals %}
+						<td>{{grade.threshold}}</td>
 					{% endfor %}
 				</tr>
 			</table>
-			<div class="row">
-				<div class="col-xs-6"><label>Overall Position: </label></div>
-				<div class="col-xs-6"><label>Class Position: </label></div>
-			</div>
-			<div class="row">
-				<div class="col-xs-12">
-					<label>Academic Manager's Comments </label>
-					<p>
-						{{ remarks.comment }}
-					</p>
-				</div>
-				<div class="col-xs-12">
-					<label>Instructor's Comments </label>
-					<p>
-						It has survived not only five centuries, but also the leap into 
-						electronic typesetting, remaining essentially unchanged. 
-					</p>
-				</div>
-			</div>
-	</div>
-	</div>
-
-
-	<br>
-
-	<!-- <div class="row section-break pbi_avoid">
-		<div class="col-xs-6 column-break">
-			<h4>{{ _("Student Attendance")}}</h4> <br>
-			<div>
-				Present {{ doc.attendance.get("Present") if doc.attendance.get("Present") != None else '0' }} days
-				out of {{ doc.attendance.get("Present") + doc.attendance.get("Absent") }}
-			</div>
 		</div>
-
-		<div class="col-xs-6 column-break">
-			<h4>{{ _("Parents Teacher Meeting Attendance")}}</h4> <br>
-			<div>
-				Present {{ doc.parents_attendance if doc.parents_attendance != None else '0' }}
-				out of {{ doc.parents_meeting if doc.parents_meeting != None else '0' }}
-			</div>
-		</div>
-	</div> -->
-
+	</div>
 	{% if doc.assessment_terms %}
 	<div class="row section-break pb_before">
 		<div class="col-xs-12">
