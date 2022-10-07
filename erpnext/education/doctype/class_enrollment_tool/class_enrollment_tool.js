@@ -8,12 +8,22 @@ frappe.ui.form.on("Class Enrollment Tool", {
 		if(frm.doc.__onload && frm.doc.__onload.academic_term_reqd) {
 			frm.toggle_reqd("academic_term", true);
 		}
+		frm.call('get_current_academic_info')
+		.then(r => {
+			if (r.message) {
+				let academic_info = r.message;
+				frm.set_value({
+					'academic_term': academic_info.year,
+					'academic_year': academic_info.term
+				})
+			}
+		})
 	},
 
 	"refresh": function(frm) {
 		frm.disable_save();
 		frm.fields_dict.enroll_students.$input.addClass(' btn btn-primary');
-		frappe.realtime.on("program_enrollment_tool", function(data) {
+		frappe.realtime.on("class_enrollment_tool", function(data) {
 			frappe.hide_msgprint(true);
 			frappe.show_progress(__("Enrolling students"), data.progress[0], data.progress[1]);
 		});

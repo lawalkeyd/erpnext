@@ -15,6 +15,7 @@
  "hide_custom": 0,
  "icon": "education",
  "idx": 0,
+ "is_default": 0,
  "is_standard": 1,
  "label": "Education",
  "links": [
@@ -86,7 +87,7 @@
    "dependencies": "",
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Class",
+   "label": "Program",
    "link_to": "Class",
    "link_type": "DocType",
    "onboard": 0,
@@ -96,7 +97,7 @@
    "dependencies": "",
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Subject",
+   "label": "Course",
    "link_to": "Subject",
    "link_type": "DocType",
    "onboard": 1,
@@ -258,7 +259,7 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Program Enrollment",
-   "link_to": "Program Enrollment",
+   "link_to": "Class Enrollment",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -268,7 +269,7 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Course Enrollment",
-   "link_to": "Course Enrollment",
+   "link_to": "Subject Enrollment",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -352,7 +353,7 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Course Schedule",
-   "link_to": "Course Schedule",
+   "link_to": "Subject Schedule",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -362,7 +363,7 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Course Scheduling Tool",
-   "link_to": "Course Scheduling Tool",
+   "link_to": "Subject Scheduling Tool",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -436,7 +437,7 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Course Enrollment",
-   "link_to": "Course Enrollment",
+   "link_to": "Subject Enrollment",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -446,7 +447,7 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Course Activity",
-   "link_to": "Course Activity",
+   "link_to": "Subject Activity",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -596,8 +597,8 @@
    "dependencies": "",
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Program Enrollment Tool",
-   "link_to": "Program Enrollment Tool",
+   "label": "Class Enrollment Tool",
+   "link_to": "Class Enrollment Tool",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -607,7 +608,7 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Course Scheduling Tool",
-   "link_to": "Course Scheduling Tool",
+   "link_to": "Subject Scheduling Tool",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -630,7 +631,7 @@
    "type": "Link"
   }
  ],
- "modified": "2020-12-01 13:38:37.448989",
+ "modified": "2022-10-06 17:32:01.764948",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Education",
@@ -660,13 +661,13 @@
    "color": "",
    "format": "",
    "label": "Program",
-   "link_to": "Program",
+   "link_to": "Class",
    "stats_filter": "",
    "type": "DocType"
   },
   {
    "label": "Course",
-   "link_to": "Course",
+   "link_to": "Subject",
    "type": "DocType"
   },
   {
@@ -684,7 +685,7 @@
   },
   {
    "label": "Course Scheduling Tool",
-   "link_to": "Course Scheduling Tool",
+   "link_to": "Subject Scheduling Tool",
    "type": "DocType"
   },
   {

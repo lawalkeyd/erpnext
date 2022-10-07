@@ -1,0 +1,44 @@
+{
+ "actions": [],
+ "creation": "2022-10-07 07:39:38.346606",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "enrollment",
+  "student_name",
+  "column_break_3"
+ ],
+ "fields": [
+  {
+   "fieldname": "student_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Student Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "enrollment",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Student",
+   "options": "Class Enrollment"
+  }
+ ],
+ "istable": 1,
+ "links": [],
+ "modified": "2022-10-07 09:44:36.617419",
+ "modified_by": "Administrator",
+ "module": "Education",
+ "name": "Subject Enrollment Tool Student",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "restrict_to_domain": "Education",
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

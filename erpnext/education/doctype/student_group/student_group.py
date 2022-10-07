@@ -7,7 +7,7 @@ from frappe import _
 from frappe.model.document import Document
 from frappe.utils import cint
 
-from erpnext.education.utils import validate_duplicate_student
+from erpnext.education.utils import validate_duplicate_student, get_user_id_from_instructor
 
 
 class StudentGroup(Document):
@@ -84,6 +84,11 @@ class StudentGroup(Document):
 				frappe.throw(_("Duplicate roll number for student {0}").format(d.student_name))
 			else:
 				roll_no_list.append(d.group_roll_number)
+	
+	# def after_insert(self):
+	# 	for instructor in self.instructors:
+	# 		user_id = get_user_id_from_instructor(instructor.instructor)
+	# 		frappe.permissions.add_user_permission("Student Group", self.name, user_id)
 
 
 @frappe.whitelist()

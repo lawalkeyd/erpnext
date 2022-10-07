@@ -71,7 +71,7 @@
    "fieldname": "program",
    "fieldtype": "Link",
    "in_global_search": 1,
-   "label": "Program",
+   "label": "Class",
    "options": "Class"
   },
   {
@@ -133,7 +133,7 @@
   }
  ],
  "links": [],
- "modified": "2022-06-21 17:13:27.166291",
+ "modified": "2022-10-06 11:32:10.628684",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Student Group",

@@ -15,7 +15,7 @@
   "get_students",
   "students",
   "section_break_7",
-  "new_program",
+  "new_class",
   "new_student_batch",
   "enroll_students",
   "column_break_12",
@@ -35,7 +35,7 @@
    "fieldname": "program",
    "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Program",
+   "label": "Class",
    "options": "Class",
    "reqd": 1
   },
@@ -85,13 +85,6 @@
    "label": "Enrollment Details"
   },
   {
-   "depends_on": "eval:doc.get_students_from==\"Program Enrollment\"",
-   "fieldname": "new_program",
-   "fieldtype": "Link",
-   "label": "New Program",
-   "options": "Class"
-  },
-  {
    "fieldname": "new_student_batch",
    "fieldtype": "Link",
    "label": "New Student Batch",
@@ -107,24 +100,31 @@
    "fieldtype": "Column Break"
   },
   {
-   "depends_on": "eval:doc.get_students_from==\"Program Enrollment\"",
+   "depends_on": "eval:doc.get_students_from==\"Class Enrollment\"",
    "fieldname": "new_academic_year",
    "fieldtype": "Link",
    "label": "New Academic Year",
    "options": "Academic Year"
   },
   {
-   "depends_on": "eval:doc.get_students_from==\"Program Enrollment\"",
+   "depends_on": "eval:doc.get_students_from==\"Class Enrollment\"",
    "fieldname": "new_academic_term",
    "fieldtype": "Link",
    "label": "New Academic Term",
    "options": "Academic Term"
+  },
+  {
+   "depends_on": "eval:doc.get_students_from==\"Class Enrollment\"",
+   "fieldname": "new_class",
+   "fieldtype": "Link",
+   "label": "New Class",
+   "options": "Class"
   }
  ],
  "hide_toolbar": 1,
  "issingle": 1,
  "links": [],
- "modified": "2022-09-02 12:52:26.579230",
+ "modified": "2022-10-06 22:46:36.903921",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Class Enrollment Tool",

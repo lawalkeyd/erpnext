@@ -27,7 +27,7 @@
    "fieldname": "program_name",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Program Name",
+   "label": "Class Name",
    "reqd": 1,
    "unique": 1
   },
@@ -43,7 +43,7 @@
    "fieldname": "program_abbreviation",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Program Abbreviation"
+   "label": "Class Abbreviation"
   },
   {
    "fieldname": "section_break_5",
@@ -113,7 +113,7 @@
  ],
  "image_field": "hero_image",
  "links": [],
- "modified": "2022-10-05 15:54:45.258827",
+ "modified": "2022-10-06 16:15:54.419811",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Class",
