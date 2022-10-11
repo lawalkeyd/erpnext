@@ -21,7 +21,7 @@ class SubjectEnrollment(Document):
 		        :param self: Course Enrollment Object
 		        :param student: Student Object
 		"""
-		course = frappe.get_doc("Course", self.course)
+		course = frappe.get_doc("Subject", self.course)
 		topics = course.get_topics()
 		progress = []
 		for topic in topics:
@@ -33,7 +33,7 @@ class SubjectEnrollment(Document):
 
 	def validate_duplication(self):
 		enrollment = frappe.db.exists(
-			"Course Enrollment",
+			"Subject Enrollment",
 			{
 				"student": self.student,
 				"course": self.course,
@@ -43,8 +43,8 @@ class SubjectEnrollment(Document):
 		)
 		if enrollment:
 			frappe.throw(
-				_("Student is already enrolled via Course Enrollment {0}").format(
-					get_link_to_form("Course Enrollment", enrollment)
+				_("Student is already enrolled via Subject Enrollment {0}").format(
+					get_link_to_form("Subject Enrollment", enrollment)
 				),
 				title=_("Duplicate Entry"),
 			)
@@ -125,7 +125,7 @@ class SubjectEnrollment(Document):
 		else:
 			activity = frappe.get_doc(
 				{
-					"doctype": "Course Activity",
+					"doctype": "Subject Activity",
 					"enrollment": self.name,
 					"content_type": content_type,
 					"content": content,
@@ -139,7 +139,7 @@ class SubjectEnrollment(Document):
 
 def check_activity_exists(enrollment, content_type, content):
 	activity = frappe.get_all(
-		"Course Activity",
+		"Subject Activity",
 		filters={"enrollment": enrollment, "content_type": content_type, "content": content},
 	)
 	if activity:

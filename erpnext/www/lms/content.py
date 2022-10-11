@@ -63,12 +63,12 @@ def get_previous_content(content_list, current_index):
 def allowed_content_access(program, content, content_type):
 	contents_of_program = frappe.db.sql(
 		"""select `tabTopic Content`.content, `tabTopic Content`.content_type
-	from `tabCourse Topic`,
-		 `tabProgram Course`,
+	from `tabSubject Topic`,
+		 `tabClass Subject`,
 		 `tabTopic Content`
-	where `tabCourse Topic`.parent = `tabProgram Course`.course
-			and `tabTopic Content`.parent = `tabCourse Topic`.topic
-			and `tabProgram Course`.parent = %(program)s""",
+	where `tabSubject Topic`.parent = `tabClass Subject`.subject
+			and `tabTopic Content`.parent = `tabSubject Topic`.topic
+			and `tabClass Subject`.parent = %(program)s""",
 		{"program": program},
 	)
 

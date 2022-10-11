@@ -1,3 +1,4 @@
+from warnings import filters
 import frappe
 from frappe import _
 
@@ -15,9 +16,11 @@ def get_context(context):
 
 	context.education_settings = frappe.get_single("Education Settings")
 	context.program = get_program(program)
-	context.courses = [frappe.get_doc("Subject", course.subject) for course in context.program.subjects]
+	subjects = frappe.db.get_list("Subject", filters={"class": program})
+	context.courses = [frappe.get_doc("Subject", subject.name) for subject in subjects]
 	context.has_access = utils.allowed_program_access(program)
-	context.progress = get_course_progress(context.courses, context.program)
+	progress = get_course_progress(context.courses, context.program)
+	context.progress = progress
 
 
 def get_program(program_name):

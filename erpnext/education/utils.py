@@ -292,12 +292,12 @@ def submit_question(response, question, current_cbt_name, subject, student_class
 
 
 @frappe.whitelist()
-def get_quiz(exam_name, course):
+def get_quiz(quiz_name, course):
 	try:
-		quiz = frappe.get_doc("Quiz", exam_name)
+		quiz = frappe.get_doc("Quiz", quiz_name)
 		questions = quiz.get_questions()
 	except Exception:
-		frappe.throw(_("Quiz {0} does not exist").format(exam_name), frappe.DoesNotExistError)
+		frappe.throw(_("Quiz {0} does not exist").format(quiz_name), frappe.DoesNotExistError)
 		return None
 
 	questions = [
@@ -556,7 +556,7 @@ def get_or_create_subject_enrollment(course, program):
 
 def check_content_completion(content_name, content_type, enrollment_name):
 	activity = frappe.get_all(
-		"Course Activity",
+		"Subject Activity",
 		filters={"enrollment": enrollment_name, "content_type": content_type, "content": content_name},
 	)
 	if activity:

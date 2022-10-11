@@ -24,7 +24,7 @@ def get_context(context):
 def get_contents(topic, course, program):
 	student = utils.get_current_student()
 	if student:
-		course_enrollment = utils.get_or_create_course_enrollment(course, program)
+		course_enrollment = utils.get_or_create_subject_enrollment(course, program)
 	contents = topic.get_contents()
 	progress = []
 	if contents:

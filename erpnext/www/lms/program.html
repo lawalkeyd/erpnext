@@ -37,7 +37,7 @@
 {% endblock %}
 
 
-{% macro card(course) %}
+{% macro card(course, progress) %}
 <div class="col-sm-4 mb-4 text-left">
 	<a href="/lms/course?name={{ course.name }}&program={{ program.name }}" class="no-decoration no-underline">
 	<div class="card h-100">
@@ -74,7 +74,7 @@
 	<div class='container'>
 		<div class="row mt-5">
 			{% for course in courses %}
-				{{ card(course) }}
+				{{ card(course, progress) }}
 			{% endfor %}
 			{% if courses %}
 				{% for n in range( (3 - (courses|length)) %3) %}
