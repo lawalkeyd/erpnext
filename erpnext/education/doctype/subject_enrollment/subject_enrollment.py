@@ -86,9 +86,6 @@ class SubjectEnrollment(Document):
 		result = {k: ("Correct" if v else "Wrong") for k, v in answers.items()}
 		result_data = []
 		for key in answers:
-			print("keyy", key)
-			print("result key", result[key])
-			print("cbt response", cbt_response)
 			item = {}
 			item["question"] = key
 			item["cbt_result"] = result[key]
