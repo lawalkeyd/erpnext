@@ -266,7 +266,9 @@ p, label, td {
 			</div>
 
 			<div class="col-xs-3 print-heading">
+				{% if student_image %}
 				<img src="{{ student_image }}" alt="" class="student-image" srcset="">
+				{% endif %}
 			</div>
 		</div>
 	</div>

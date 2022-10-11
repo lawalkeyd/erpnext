@@ -49,11 +49,11 @@ frappe.ui.form.on('Student Group', {
 				frappe.set_route('Form', 'Student Attendance Tool', 'Student Attendance Tool');
 			}, __('Tools'));
 
-			frm.add_custom_button(__('Course Scheduling Tool'), function() {
+			frm.add_custom_button(__('Subject Scheduling Tool'), function() {
 				frappe.route_options = {
 					student_group: frm.doc.name
 				}
-				frappe.set_route('Form', 'Course Scheduling Tool', 'Course Scheduling Tool');
+				frappe.set_route('Form', 'Subject Scheduling Tool', 'Subject Scheduling Tool');
 			}, __('Tools'));
 
 			frm.add_custom_button(__('Newsletter'), function() {
