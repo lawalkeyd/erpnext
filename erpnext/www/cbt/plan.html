@@ -40,7 +40,7 @@
 <div class="col-sm-4 mb-4 text-left">
 	<div class="card h-100">
 		{% if has_access %}
-			<a href="/cbt/exam/?program={{ program }}&plan={{ plan.name }}&cbt={{plan.cbt}}" class="no-decoration no-underline">
+			<a href="/cbt/exam/?class={{ program }}&plan={{ plan.name }}&cbt={{plan.cbt}}" class="no-decoration no-underline">
 		{% else %}
 			<a href="/login#login">
 		{% endif %}
@@ -53,7 +53,7 @@
 					<ol class="list-unstyled">
 						<li>
 							{% if plan.cbt %}
-								<a class="text-muted" href="/cbt/exam/?program={{ program }}&plan={{ plan.name }}&test={{plan.cbt}}">
+								<a class="text-muted" href="/cbt/exam/?class={{ program }}&plan={{ plan.name }}&test={{plan.cbt}}">
 									{{ plan.cbt }}
 								</a>
 							{% else %}

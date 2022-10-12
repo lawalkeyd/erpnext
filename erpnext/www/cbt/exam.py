@@ -8,7 +8,7 @@ no_cache = 1
 def get_context(context):
 	# Load Query Parameters
 	try:
-		program = frappe.form_dict["program"]
+		program = frappe.form_dict["class"]
 		plan = frappe.form_dict["plan"]
 		cbt = frappe.form_dict["cbt"] 
 	except KeyError:

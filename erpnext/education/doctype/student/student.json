@@ -251,12 +251,13 @@
    "fieldname": "title",
    "fieldtype": "Data",
    "hidden": 1,
-   "label": "Title"
+   "label": "Title",
+   "permlevel": 1
   }
  ],
  "image_field": "image",
  "links": [],
- "modified": "2022-10-07 14:42:37.352238",
+ "modified": "2022-10-11 11:45:47.907211",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Student",

@@ -7,7 +7,7 @@ no_cache = 1
 
 def get_context(context):
 	try:
-		program = frappe.form_dict["program"]
+		program = frappe.form_dict["class"]
 	except KeyError:
 		frappe.local.flags.redirect_location = "/lms"
 		raise frappe.Redirect

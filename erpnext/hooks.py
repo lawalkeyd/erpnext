@@ -281,12 +281,24 @@ standard_portal_menu_items = [
 		"reference_doctype": "Patient Appointment",
 		"role": "Patient",
 	},
-	{"title": _("Fees"), "route": "/fees", "reference_doctype": "Fees", "role": "Student"},
+	# {"title": _("Fees"), "route": "/fees", "reference_doctype": "Fees", "role": "Student"},
 	{"title": _("Newsletter"), "route": "/newsletters", "reference_doctype": "Newsletter"},
 	{
 		"title": _("Admission"),
 		"route": "/admissions",
 		"reference_doctype": "Student Admission",
+		"role": "Student",
+	},
+	{
+		"title": _("Learning Management System"),
+		"route": "/lms",
+		"reference_doctype": "Student",
+		"role": "Student",
+	},
+	{
+		"title": _("CBT"),
+		"route": "/cbt",
+		"reference_doctype": "CBT",
 		"role": "Student",
 	},
 	{
