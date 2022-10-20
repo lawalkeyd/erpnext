@@ -7,7 +7,9 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "school_subject",
   "course_name",
+  "column_break_3",
   "class",
   "department",
   "section_break_6",
@@ -16,10 +18,13 @@
   "hero_image",
   "assessment",
   "default_grading_scale",
-  "assessment_criteria"
+  "assessment_criteria",
+  "instructors_section",
+  "subject_instructors"
  ],
  "fields": [
   {
+   "fetch_from": "school_subject.subject_name",
    "fieldname": "course_name",
    "fieldtype": "Data",
    "in_list_view": 1,
@@ -80,11 +85,33 @@
    "label": "Class",
    "options": "Class",
    "reqd": 1
+  },
+  {
+   "fieldname": "school_subject",
+   "fieldtype": "Link",
+   "label": "School Subject",
+   "options": "School Subject",
+   "reqd": 1
+  },
+  {
+   "fieldname": "subject_instructors",
+   "fieldtype": "Table",
+   "label": "Subject Instructors",
+   "options": "Subject Instructor"
+  },
+  {
+   "fieldname": "instructors_section",
+   "fieldtype": "Section Break",
+   "label": "Instructors"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
   }
  ],
  "image_field": "hero_image",
  "links": [],
- "modified": "2022-10-06 16:20:39.504539",
+ "modified": "2022-10-14 11:36:23.095991",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Subject",
