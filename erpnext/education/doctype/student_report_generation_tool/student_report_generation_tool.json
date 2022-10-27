@@ -10,6 +10,7 @@
   "program",
   "student_batch",
   "include_all_assessment",
+  "include_assessment_criteria",
   "show_marks",
   "add_letterhead",
   "column_break_3",
@@ -51,7 +52,7 @@
    "options": "Student Batch Name"
   },
   {
-   "default": "0",
+   "default": "1",
    "fieldname": "include_all_assessment",
    "fieldtype": "Check",
    "label": "Include All Assessment Group"
@@ -125,12 +126,18 @@
    "fieldname": "assessment_terms",
    "fieldtype": "Text Editor",
    "label": "Assessment Terms"
+  },
+  {
+   "default": "0",
+   "fieldname": "include_assessment_criteria",
+   "fieldtype": "Check",
+   "label": "Include Assessment Criteria"
   }
  ],
  "hide_toolbar": 1,
  "issingle": 1,
  "links": [],
- "modified": "2022-06-21 17:13:23.494870",
+ "modified": "2022-10-26 12:35:36.551712",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Student Report Generation Tool",

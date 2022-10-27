@@ -16,6 +16,9 @@
   "user_creation_skip",
   "section_break_7",
   "instructor_created_by",
+  "section_break_12",
+  "use_default_criteria",
+  "default_assessment_criteria",
   "web_academy_settings_section",
   "enable_lms",
   "portal_title",
@@ -109,11 +112,28 @@
    "fieldname": "next_term_begins",
    "fieldtype": "Date",
    "label": "Next Term Begins"
+  },
+  {
+   "fieldname": "section_break_12",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "use_default_criteria",
+   "fieldtype": "Check",
+   "label": "Use Default Criteria",
+   "options": "True"
+  },
+  {
+   "fieldname": "default_assessment_criteria",
+   "fieldtype": "Table",
+   "label": "Assessment Criteria",
+   "options": "Subject Assessment Criteria"
   }
  ],
  "issingle": 1,
  "links": [],
- "modified": "2022-10-04 07:21:08.334705",
+ "modified": "2022-10-20 09:59:50.652621",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Education Settings",

@@ -292,7 +292,7 @@ p, label, td {
 			</td>	
 	
 			<td class="col-xs-2 column-break">
-				<label>{{ _("Academic Year: ") }}</label>
+				<label>{{ _("Academic Term: ") }}</label>
 			</td>
 		</tr>
 		<tr>
@@ -313,7 +313,7 @@ p, label, td {
 			</td>	
 	
 			<td class="col-xs-2 column-break">
-				{{ doc.academic_year }}
+				{{ doc.academic_term }}
 			</td>
 		</tr>	
 
@@ -342,31 +342,50 @@ p, label, td {
 						</div>
 					</div>
 				</caption> -->
-				<tr class="table-heading-row">
-					<td style="width: {{ 650//(assessment_groups|length + 1) }}px">{{ _("Subject") }}</td>
-					<td>CA 1</td>
-					<td>CA 2</td>
-					<td>Total</td>
-					<td>Grade</td>
-				</tr>
+
 				{% for course in courses %}
+					{% if loop.index == 1 %}
+						<tr class="table-heading-row">
+							<td style="width: {{ 650//(assessment_groups|length + 1) }}px">{{ _("Subject") }}</td>
+							{% for assessment_group in assessment_groups %}
+								{% if (assessment_result.get(course) and assessment_result.get(course).get(assessment_group) and assessment_result.get(course).get(assessment_group).get('Final Grade')) %}
+									<td> {{ assessment_group }}</td>
+								{% endif %}
+								{% if doc.include_assessment_criteria %}
+									{% for criteria in default_criteria %}
+										<td> {{ criteria }} </td>	
+									{% endfor%}
+								{% endif %}
+							{% endfor %}
+							<td>Total</td>
+							<td>Grade</td>
+						</tr>
+					{% endif %}
 					<tr>
-					<td>{{ course }} ({{ frappe.db.get_value("Subject", course, "course_name") }})</td>
-					{% for criteria in course_criteria[course] %}
-						{% if (assessment_result.get(course) and assessment_result.get(course).get(doc.assessment_group) and assessment_result.get(course).get(doc.assessment_group).get(criteria)) %}
+						<td>{{ course }} ({{ frappe.db.get_value("Subject", course, "course_name") }})</td>
+						{% for assessment_group in assessment_groups %}
+							{% if doc.include_assessment_criteria %}
+								{% for criteria in default_criteria %}
+									{% if (assessment_result.get(course) and assessment_result.get(course).get(assessment_group) and assessment_result.get(course).get(doc.assessment_group).get(criteria)) %}
+									<td>
+										{{ assessment_result.get(course).get(doc.assessment_group).get(criteria).get(result_data) }}
+									</td>
+									{% else %}
+									<td></td>
+									{% endif %}
+								{% endfor %}
+							{% else %}
+								{% if (assessment_result.get(course) and assessment_result.get(course).get(assessment_group) and assessment_result.get(course).get(assessment_group).get('Final Grade')) %}
+									<td>{{ assessment_result.get(course).get(assessment_group).get('Final Grade') }}</td>
+								{% endif %}
+							{% endif %}
+						{% endfor %}
 						<td>
-							{{ assessment_result.get(course).get(doc.assessment_group).get(criteria).get(result_data) }}
+							{{ assessment_result.get(course).get(doc.assessment_group).get('Final Grade').get('score') }}
 						</td>
-						{% else %}
-						<td></td>
-						{% endif %}
-					{% endfor %}
-					<td>
-						{{ assessment_result.get(course).get(doc.assessment_group).get('Final Grade').get('score') }}
-					</td>
-					<td>
-						{{ assessment_result.get(course).get(doc.assessment_group).get('Final Grade').get('grade') }}
-					</td>
+						<td>
+							{{ assessment_result.get(course).get(doc.assessment_group).get('Final Grade').get('grade') }}
+						</td>
 					</tr>
 				{% endfor %}
 			</table>
@@ -468,21 +487,24 @@ p, label, td {
 				</tr>
 			</table>
 			<div class="row">
-				<div class="col-xs-6"><label>Overall Position: </label></div>
-				<div class="col-xs-6"><label>Class Position: </label></div>
+				{% if grading_info %}
+					<div class="col-xs-6"><label>Overall Position: {{ grading_info.overall_position }}</label></div>
+					<div class="col-xs-6"><label>Class Position: {{grading_info.student_group_position }}</label></div>
+				{% endif %}
 			</div>
 			<div class="row">
 				<div class="col-xs-12">
-					<label>Academic Manager's Comments </label>
-					<p>
-						{{ remarks.comment }}
-					</p>
+					{% if grading_info.comment %}
+						<label>Academic Manager's Comments </label>
+						<p>
+							{{ grading_info.comment }}
+						</p>
+					{% endif %}
 				</div>
 				<div class="col-xs-12">
 					<label>Instructor's Comments </label>
 					<p>
-						It has survived not only five centuries, but also the leap into 
-						electronic typesetting, remaining essentially unchanged. 
+						{{ remarks.comment }}
 					</p>
 				</div>
 			</div>

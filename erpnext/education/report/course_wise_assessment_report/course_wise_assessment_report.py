@@ -3,6 +3,7 @@
 
 
 from collections import OrderedDict, defaultdict
+from unicodedata import name
 
 import frappe
 from frappe import _
@@ -66,9 +67,9 @@ def execute(filters=None):
 
 
 def get_formatted_result(
-	args, get_assessment_criteria=False, get_course=False, get_all_assessment_groups=False
+	args, get_assessment_criteria=False, get_course=False, get_all_assessment_groups=False, include_student_group=False
 ):
-	cond, cond1, cond2, cond3, cond4 = " ", " ", " ", " ", " "
+	cond, cond1, cond2, cond3, cond4, cond5 = " ", " ", " ", " ", " ", " "
 	args_list = [args.academic_year]
 
 	if args.course:
@@ -83,14 +84,18 @@ def get_formatted_result(
 		cond2 = " and ar.student_group=%s"
 		args_list.append(args.student_group)
 
+	if args.program:
+		cond3 = " and ar.program=%s"
+		args_list.append(args.program)
+
 	create_total_dict = False
 
 	assessment_groups = get_child_assessment_groups(args.assessment_group)
-	cond3 = " and ar.assessment_group in (%s)" % (", ".join(["%s"] * len(assessment_groups)))
+	cond4 = " and ar.assessment_group in (%s)" % (", ".join(["%s"] * len(assessment_groups)))
 	args_list += assessment_groups
 
 	if args.students:
-		cond4 = " and ar.student in (%s)" % (", ".join(["%s"] * len(args.students)))
+		cond5 = " and ar.student in (%s)" % (", ".join(["%s"] * len(args.students)))
 		args_list += args.students
 
 	assessment_result = frappe.db.sql(
@@ -102,10 +107,10 @@ def get_formatted_result(
 		FROM
 			`tabAssessment Result` ar, `tabAssessment Result Detail` ard
 		WHERE
-			ar.name=ard.parent and ar.docstatus=1 and ar.academic_year=%s {0} {1} {2} {3} {4}
+			ar.name=ard.parent and ar.docstatus=1 and ar.academic_year=%s {0} {1} {2} {3} {4} {5}
 		ORDER BY
 			ard.assessment_criteria""".format(
-			cond, cond1, cond2, cond3, cond4
+			cond, cond1, cond2, cond3, cond4, cond5
 		),
 		tuple(args_list),
 		as_dict=1,
@@ -172,7 +177,10 @@ def get_formatted_result(
 
 	for result in assessment_result:
 		if result.student not in student_details:
-			student_details[result.student] = result.student_name
+			if include_student_group:
+				student_details[result.student] = {"name": result.student_name, "student_group": result.student_group}
+			else:
+				student_details[result.student] = result.student_name
 
 		assessment_criteria_details = frappe._dict(
 			{

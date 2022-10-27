@@ -259,6 +259,9 @@ def get_assessment_criteria(course):
 
 	:param Course: Course
 	"""
+	settings = frappe.get_doc("Education Settings")
+	if settings.use_default_criteria:
+		return settings.default_assessment_criteria
 	return frappe.get_all(
 		"Subject Assessment Criteria",
 		fields=["assessment_criteria", "weightage"],

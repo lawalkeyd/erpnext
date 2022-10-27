@@ -1,0 +1,42 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-10-25 09:11:36.982878",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "subject",
+  "class_average"
+ ],
+ "fields": [
+  {
+   "fieldname": "subject",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Subject",
+   "options": "Subject",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "class_average",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Class Average",
+   "precision": "2",
+   "read_only": 1,
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-10-25 10:19:23.087883",
+ "modified_by": "Administrator",
+ "module": "Education",
+ "name": "Subject Assessment Report Information",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}
