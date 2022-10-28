@@ -35,15 +35,4 @@ frappe.query_reports["Final Assessment Grades"] = {
 		}
 
 	],
-	"onload" : function(report) {
-		report.page.add_inner_button(__("Calculate Class Total/Positions"), function(){
-			let filters = report.get_values()
-			return frappe.call({
-				method: "erpnext.education.report.final_assessment_grades.final_assessment_grades.calculate_class_total_and_positions",
-				args: {
-					filters: filters
-				}
-			})
-		})
-	}
 }

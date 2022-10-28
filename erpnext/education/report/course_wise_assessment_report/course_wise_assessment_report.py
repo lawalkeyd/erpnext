@@ -69,7 +69,7 @@ def execute(filters=None):
 def get_formatted_result(
 	args, get_assessment_criteria=False, get_course=False, get_all_assessment_groups=False, include_student_group=False
 ):
-	cond, cond1, cond2, cond3, cond4, cond5 = " ", " ", " ", " ", " ", " "
+	cond, cond1, cond2, cond3, cond4, cond5, cond6 = " ", " ", " ", " ", " ", " ", " "
 	args_list = [args.academic_year]
 
 	if args.course:
@@ -88,14 +88,18 @@ def get_formatted_result(
 		cond3 = " and ar.program=%s"
 		args_list.append(args.program)
 
+	if args.student:
+		cond4 = " and ar.student=%s"
+		args_list.append(args.student)
+
 	create_total_dict = False
 
 	assessment_groups = get_child_assessment_groups(args.assessment_group)
-	cond4 = " and ar.assessment_group in (%s)" % (", ".join(["%s"] * len(assessment_groups)))
+	cond5 = " and ar.assessment_group in (%s)" % (", ".join(["%s"] * len(assessment_groups)))
 	args_list += assessment_groups
 
 	if args.students:
-		cond5 = " and ar.student in (%s)" % (", ".join(["%s"] * len(args.students)))
+		cond6 = " and ar.student in (%s)" % (", ".join(["%s"] * len(args.students)))
 		args_list += args.students
 
 	assessment_result = frappe.db.sql(
@@ -107,10 +111,10 @@ def get_formatted_result(
 		FROM
 			`tabAssessment Result` ar, `tabAssessment Result Detail` ard
 		WHERE
-			ar.name=ard.parent and ar.docstatus=1 and ar.academic_year=%s {0} {1} {2} {3} {4} {5}
+			ar.name=ard.parent and ar.docstatus=1 and ar.academic_year=%s {0} {1} {2} {3} {4} {5} {6}
 		ORDER BY
 			ard.assessment_criteria""".format(
-			cond, cond1, cond2, cond3, cond4, cond5
+			cond, cond1, cond2, cond3, cond4, cond5, cond6
 		),
 		tuple(args_list),
 		as_dict=1,
