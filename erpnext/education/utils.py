@@ -88,6 +88,59 @@ def get_current_student():
 	except (IndexError, frappe.DoesNotExistError):
 		return None
 
+def get_current_guardian():
+	"""Returns current guardin from frappe.session.user
+
+	Returns:
+	        object: Guardian Document
+	"""
+	email = frappe.session.user
+	if email in ("Administrator", "Guest"):
+		return None
+	try:
+		return frappe.get_all("Guardian", {"email_address": email}, ["name"])[0].name
+	except (IndexError, frappe.DoesNotExistError):
+		return None
+
+def get_guardian_students():
+	guardian = get_current_guardian()
+	student_list = frappe.get_all("Student Guardian", filters={"guardian": guardian}, fields=["parent"])
+	return [ student["parent"] for student in student_list ]
+
+def get_guardian_items(item):
+	"""Returns a list of students fees' dicts to be displayed on the portal
+	Fees are returned based on the following logic
+	        is_published and (student_is_enrolled or student_can_self_enroll)
+
+	Returns:
+	        list of dictionary: List of all programs and to be displayed on the portal along with access rights
+	"""
+
+	students_dict = {}
+	students = get_guardian_students()
+	for student in students:
+		if item == "Fees":
+			data = frappe.get_list("Fees", filters={
+				"student": student
+			},
+			fields=['currency', 'name', 'program', "outstanding_amount", "grand_total", "academic_year", "academic_term", "currency", "student_name"],
+			)
+			students_dict[student] = data
+	return students_dict
+
+def get_student_fee(name):
+	"""
+	Returns Student Fee for Portal View Upon checking guardian has access
+	"""
+	fee = frappe.get_doc("Fees", name)
+	guardian_students = get_guardian_students()
+	if fee.student not in guardian_students:
+		return None
+	return fee
+
+
+
+
 
 def get_portal_programs():
 	"""Returns a list of all program to be displayed on the portal

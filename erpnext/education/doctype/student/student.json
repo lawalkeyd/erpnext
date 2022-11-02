@@ -27,6 +27,7 @@
   "column_break_3",
   "gender",
   "nationality",
+  "parent_marital_status",
   "student_applicant",
   "section_break_22",
   "address_line_1",
@@ -110,7 +111,7 @@
    "fieldname": "student_mobile_number",
    "fieldtype": "Data",
    "in_global_search": 1,
-   "label": "Student Mobile Number"
+   "label": "Primary Mobile Number"
   },
   {
    "default": "Today",
@@ -201,12 +202,12 @@
   {
    "fieldname": "section_break_18",
    "fieldtype": "Section Break",
-   "label": "Guardian Details"
+   "label": "Parent/Guardian Details"
   },
   {
    "fieldname": "guardians",
    "fieldtype": "Table",
-   "label": "Guardians",
+   "label": "Parents/Guardians",
    "options": "Student Guardian"
   },
   {
@@ -253,11 +254,17 @@
    "hidden": 1,
    "label": "Title",
    "permlevel": 1
+  },
+  {
+   "fieldname": "parent_marital_status",
+   "fieldtype": "Select",
+   "label": "Parent Marital Status",
+   "options": "Married\nSingle\nDivorced\nWidowed"
   }
  ],
  "image_field": "image",
  "links": [],
- "modified": "2022-10-11 11:45:47.907211",
+ "modified": "2022-10-31 10:53:43.014611",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Student",

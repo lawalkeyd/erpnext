@@ -1,0 +1,51 @@
+{% extends "templates/web.html" %}
+
+{% block breadcrumbs %}
+	{% include "templates/includes/breadcrumbs.html" %}
+{% endblock %}
+
+{% block title %}{{ _("Fees") }}{% endblock %}
+
+{% block page_content %}
+<div class="container">
+    <!-- title: Book an appointment -->
+    <div>
+        <div class="text-center mt-5">
+            <h1>Fees</h1>
+            <p class="lead text-muted" id="lead-text">Student Fees</p>
+        </div>
+        {% for student in fees.keys() %}
+            <div class="card">
+                <div class="card-header">
+                {{ fees.get(student)[0].student_name }}
+                </div>
+                <div class="card-body">
+                    <div class="card-columns">
+                        {% for fee in fees.get(student) %}
+                            <div class="card border-primary">
+                                <div class="card-header">{{fee.program}} {{fee.academic_term}}</div>
+                                <div class="card-body">
+                                    <!-- <p class="card-text">{{fee.name}}</p> -->
+                                    {% if fee.outstanding_amount > 0 %}
+                                        <p class="alert alert-danger" role="alert">
+                                            {{fee.outstanding_amount}}
+                                        </p>
+                                    {% else %}
+                                        <p class="alert alert-primary" role="alert">
+                                            {{fee.outstanding_amount}}
+                                        </p>                                    
+                                    {% endif %}
+                                </div>
+                                <div class="card-footer">
+                                    <a href="/fees/fee?name={{ fee.name }}" >View Fee</a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <br><br>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

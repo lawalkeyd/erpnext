@@ -4,10 +4,9 @@
 from collections import OrderedDict, defaultdict
 
 import frappe
+from frappe import _
 from erpnext.education.report.course_wise_assessment_report.course_wise_assessment_report import (
-	get_chart_data,
 	get_formatted_result,
-	get_column
 )
 
 
@@ -25,43 +24,56 @@ def execute(filters=None):
 	if args["assessment_group"] == "All Assessment Groups":
 		frappe.throw(_("Please select the assessment group other than 'All Assessment Groups'"))
 
-	returned_values = get_formatted_result(args)
+	returned_values = get_formatted_result(args, get_assessment_criteria=True)
 	print(returned_values)
 	student_dict = returned_values["student_details"]
-	result_dict = returned_values["assessment_result"]
+	result_dict = returned_values["assessment_result"][filters.get("student")]
 	assessment_criteria_dict = returned_values["assessment_criteria"]
+	subject_name_list = []
 
-	for student in result_dict:
-		student_row = {}
-		student_row["student"] = student
-		student_row["student_name"] = student_dict[student]
-		for criteria in assessment_criteria_dict:
-			scrub_criteria = frappe.scrub(criteria)
-			if criteria in result_dict[student][args.course][args.assessment_group]:
-				student_row[scrub_criteria] = result_dict[student][args.course][args.assessment_group][
-					criteria
-				]["grade"]
-				student_row[scrub_criteria + "_score"] = result_dict[student][args.course][
-					args.assessment_group
-				][criteria]["score"]
+	for subject_name, subject in result_dict.items():
+		subject_row = {}
+		scrub_subject_name = frappe.scrub(subject_name)
+		subject_name_list.append(scrub_subject_name)
+		print(subject_name)
+		subject_row["Subject"] = subject_name
+		assessment_group = filters.get("assessment_group")
+		final_grade = subject[assessment_group]["Final Grade"]
 
-				# create the list of possible grades
-				if student_row[scrub_criteria] not in grades:
-					grades.append(student_row[scrub_criteria])
+		subject_row["Maximum Score"] = final_grade["maximum_score"]
+		subject_row["Score"] = final_grade["score"]
+		subject_row["Grade"] = final_grade["grade"]
 
-				# create the dict of for gradewise analysis
-				if student_row[scrub_criteria] not in grade_wise_analysis[criteria]:
-					grade_wise_analysis[criteria][student_row[scrub_criteria]] = 1
-				else:
-					grade_wise_analysis[criteria][student_row[scrub_criteria]] += 1
-			else:
-				student_row[frappe.scrub(criteria)] = ""
-				student_row[frappe.scrub(criteria) + "_score"] = ""
-		data.append(student_row)
+		data.append(subject_row)
 
-	assessment_criteria_list = [d for d in assessment_criteria_dict]
-	columns = get_column(assessment_criteria_dict)
-	chart = get_chart_data(grades, assessment_criteria_list, grade_wise_analysis)
+	columns = [
+		{
+			"fieldname": "Subject",
+			"label": _("Subject Name"),
+			"fieldtype": "Data",
+			"width": 160,
+		},
+		{"fieldname": "Maximum Score", "label": _("Maximum Score"), "fieldtype": "Data", "width": 160},
+		{"fieldname": "Score", "label": _("Score"), "fieldtype": "Data", "width": 160},
+		{"fieldname": "Grade", "label": _("Grade"), "fieldtype": "Data", "width": 160},
+	]
+	chart = get_chart_data(data)
 
 	return columns, data, None, chart
 
+def get_chart_data(data):
+	datasets = []
+	subject_list = []
+	value_list = []
+
+	for subject in data:
+		subject_name = subject["Subject"]
+		subject_list.append(subject_name)
+		value_list.append(subject["Score"])
+
+	datasets = [{"values": value_list}]
+
+	return {
+		"data": {"labels": subject_list, "datasets": datasets},
+		"type": "bar",
+	}

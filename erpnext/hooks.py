@@ -281,7 +281,7 @@ standard_portal_menu_items = [
 		"reference_doctype": "Patient Appointment",
 		"role": "Patient",
 	},
-	# {"title": _("Fees"), "route": "/fees", "reference_doctype": "Fees", "role": "Student"},
+	{"title": _("Fees"), "route": "/fees", "reference_doctype": "Fees", "role": "Guardian"},
 	{"title": _("Newsletter"), "route": "/newsletters", "reference_doctype": "Newsletter"},
 	{
 		"title": _("Admission"),

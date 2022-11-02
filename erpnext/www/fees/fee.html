@@ -1,0 +1,89 @@
+{% extends "templates/web.html" %}
+
+{% block breadcrumbs %}
+	{% include "templates/includes/breadcrumbs.html" %}
+{% endblock %}
+
+{% block title %}{{ _("Fees") }}{% endblock %}
+
+{% block page_content %}
+<div>
+    <!-- title: Book an appointment -->
+    <div>
+        <div class="text-center mt-5">
+            <h1>{{fee.name}}</h1>
+            <p class="lead text-muted" id="lead-text">Student Fee</p>
+        </div>
+        <div class="row no-gutters">
+            <div class="col-7">
+                <div class="row">
+                    <div class="col-3"><b>Student: </b></div>
+                    <div class="col-9">{{fee.student_name}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-3"><b>Student ID:</b></div>
+                    <div class="col-9">{{fee.student}}</div>
+                </div>        
+            </div>
+            <div class="col-5">
+                <div class="row">
+                    <div class="col-6"><b>Academic Term: </b></div>
+                    <div class="col-6">{{fee.academic_term}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-6"><b> Academic Year: </b></div>
+                    <div class="col-6">{{fee.academic_year}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-6">
+            <table class="table table-striped">
+                <thead>
+                    <th>Sr</th>
+                    <th>Fees Category</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                </thead>
+                <tbody>
+                    {% for component in fee.components %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ component.fees_category }}</td>
+                            <td>{% if component.description %}{{component.description}}{%else%}-{%endif%}</td>
+                            <td>{{ component.amount }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="row mt-6">
+            <table class="table table-bordered">
+                <tr>
+                    <th>Grand Total:</th>
+                    <td>{{fee.grand_total}}</td>
+                </tr>
+                <tr>
+                    <th>Grand Total In Words</th>
+                    <td>{{fee.grand_total_in_words}}</td>
+                </tr>
+                <tr>
+                    <th>Outstanding Amount</th>
+                    <td>{{fee.outstanding_amount}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{%- block page_footer -%}
+<style>
+    .no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+  padding-right: 0;
+  padding-left: 0;
+    
+}
+
+</style>
+{%- endblock -%}
