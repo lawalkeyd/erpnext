@@ -26,6 +26,35 @@ def validate_overlap_for(doc, doctype, fieldname, value=None):
 			OverlapError,
 		)
 
+def validate_timetable_overlap(doc, fieldname, value=None):
+	"""Checks timetable detail overlap for specified field.
+
+	:param fieldname: Checks Overlap for this field
+	"""
+
+	existing = frappe.db.sql(
+		"""select name, start_time, end_time from `tabStudent Group Timetable Detail`
+		where `{1}`=%(val)s and schedule_date = %(schedule_date)s and
+		(
+			(start_time > %(start_time)s and start_time < %(end_time)s) or
+			(end_time > %(start_time)s and end_time < %(end_time)s) or
+			(%(start_time)s > start_time and %(start_time)s < end_time) or
+			(%(start_time)s = start_time and %(end_time)s = end_time))
+		and name!=%(name)s and day = %(day)s and docstatus!=2""".format(
+			fieldname
+		),
+		{
+			"schedule_date": doc.schedule_date,
+			"val": value or doc.get(fieldname),
+			"start_time": doc.from_time,
+			"end_time": doc.end_time,
+			"name": doc.name or "No Name",
+			"day": doc.day,
+		},
+		as_dict=True,
+	)
+
+	return True if existing else False	
 
 def get_overlap_for(doc, doctype, fieldname, value=None):
 	"""Returns overlaping document for specified field.

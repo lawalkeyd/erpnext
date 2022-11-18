@@ -1,0 +1,134 @@
+{
+ "actions": [],
+ "allow_copy": 1,
+ "creation": "2022-11-04 09:16:04.024618",
+ "doctype": "DocType",
+ "document_type": "Setup",
+ "engine": "InnoDB",
+ "field_order": [
+  "student_group",
+  "program",
+  "column_break_3",
+  "academic_year",
+  "academic_term",
+  "section_break_6",
+  "column_break_9",
+  "fetch_subjects",
+  "subjects",
+  "section_break_7",
+  "fetch_durations",
+  "durations",
+  "reschedule",
+  "section_break_14",
+  "generate_timetable"
+ ],
+ "fields": [
+  {
+   "fieldname": "student_group",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Student Group",
+   "options": "Student Group",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "student_group.program",
+   "fieldname": "program",
+   "fieldtype": "Link",
+   "label": "Class",
+   "options": "Class",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "academic_year",
+   "fieldtype": "Link",
+   "label": "Academic Year",
+   "options": "Academic Year",
+   "read_only": 1
+  },
+  {
+   "fieldname": "academic_term",
+   "fieldtype": "Link",
+   "label": "Academic Term",
+   "options": "Academic Term",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_6",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "subjects",
+   "fieldtype": "Table",
+   "label": "Subjects",
+   "options": "Class Timetable Subject",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_7",
+   "fieldtype": "Section Break",
+   "label": "Duration and Date"
+  },
+  {
+   "fieldname": "fetch_durations",
+   "fieldtype": "Button",
+   "label": "Fetch Default Durations"
+  },
+  {
+   "fieldname": "durations",
+   "fieldtype": "Table",
+   "label": "Duration",
+   "options": "Class Timetable Duration",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "reschedule",
+   "fieldtype": "Check",
+   "label": "Reschedule"
+  },
+  {
+   "fieldname": "fetch_subjects",
+   "fieldtype": "Button",
+   "label": "Fetch Subjects"
+  },
+  {
+   "fieldname": "generate_timetable",
+   "fieldtype": "Button",
+   "label": "Generate Timetable"
+  },
+  {
+   "fieldname": "section_break_14",
+   "fieldtype": "Section Break",
+   "label": "Generate"
+  }
+ ],
+ "hide_toolbar": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2022-11-07 09:42:43.916142",
+ "modified_by": "Administrator",
+ "module": "Education",
+ "name": "Student Group Timetable Tool",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "read": 1,
+   "role": "Academics User",
+   "write": 1
+  }
+ ],
+ "restrict_to_domain": "Education",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
