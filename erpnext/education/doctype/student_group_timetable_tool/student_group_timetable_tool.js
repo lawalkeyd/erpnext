@@ -42,7 +42,6 @@ frappe.ui.form.on('Student Group Timetable Tool', "refresh", function(frm) {
 		});
 	});
 	frappe.realtime.on("student_group_timetable_progress", function(data) {
-		console.log("progressing")
 		if(data.progress) {
 			frappe.hide_msgprint(true);
 			frappe.show_progress(__("Creating student groups' timetable"), data.progress[0],data.progress[1]);

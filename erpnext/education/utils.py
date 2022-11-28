@@ -2,6 +2,7 @@
 
 import frappe
 from frappe import _
+from frappe.utils import get_datetime
 
 
 class OverlapError(frappe.ValidationError):
@@ -31,29 +32,34 @@ def validate_timetable_overlap(doc, fieldname, value=None):
 
 	:param fieldname: Checks Overlap for this field
 	"""
-
+	print("doc", type(doc["start_time"]), type(doc["end_time"]), doc)
+	timeta = frappe.db.get_list(
+		"Student Group Timetable Detail",
+		filters={"start_time": doc["start_time"]},
+		fields=["name", "start_time"]
+	)
+	print("timeta", timeta)
 	existing = frappe.db.sql(
 		"""select name, start_time, end_time from `tabStudent Group Timetable Detail`
-		where `{1}`=%(val)s and schedule_date = %(schedule_date)s and
+		where `{0}`=%(val)s and day = %(day)s and
 		(
 			(start_time > %(start_time)s and start_time < %(end_time)s) or
 			(end_time > %(start_time)s and end_time < %(end_time)s) or
 			(%(start_time)s > start_time and %(start_time)s < end_time) or
 			(%(start_time)s = start_time and %(end_time)s = end_time))
-		and name!=%(name)s and day = %(day)s and docstatus!=2""".format(
+		 	""".format(
 			fieldname
 		),
 		{
-			"schedule_date": doc.schedule_date,
 			"val": value or doc.get(fieldname),
-			"start_time": doc.from_time,
-			"end_time": doc.end_time,
-			"name": doc.name or "No Name",
-			"day": doc.day,
+			"start_time": doc["start_time"],
+			"end_time": doc["end_time"],
+			"day": doc["day"],
 		},
 		as_dict=True,
 	)
-
+	print("query values", doc.get(fieldname), value, type(doc["start_time"]),type(doc["end_time"]), doc["day"])
+	print(existing, "existing")
 	return True if existing else False	
 
 def get_overlap_for(doc, doctype, fieldname, value=None):
@@ -61,7 +67,7 @@ def get_overlap_for(doc, doctype, fieldname, value=None):
 
 	:param fieldname: Checks Overlap for this field
 	"""
-
+	print("overlap", doc.from_time, type(doc.from_time))
 	existing = frappe.db.sql(
 		"""select name, from_time, to_time from `tab{0}`
 		where `{1}`=%(val)s and schedule_date = %(schedule_date)s and

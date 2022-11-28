@@ -2,9 +2,11 @@
 # For license information, please see license.txt
 
 import frappe
+import copy
 import random
 from frappe import _
 from frappe.model.document import Document
+from frappe.utils import get_datetime
 
 class StudentGroupTimetableTool(Document):
 	@frappe.whitelist()
@@ -27,39 +29,35 @@ class StudentGroupTimetableTool(Document):
 	def generate_timetable(self):
 		self.validate_mandatory()
 		subjects = sorted(self.subjects, key= lambda x: x.is_core, reverse=True)
-		print("subjects", subjects)
 		timetable_errors = []
 		grouped_subjects_to_avoid = []
 		durations = self.sort_durations(self.durations)
 		timetable = self.create_timetable()
 		for idx, subject in enumerate(subjects):
-			print("subject", subject.subject)
 			frappe.publish_realtime(
 				"student_group_timetable_progress", {"progress": [idx, len(subjects)]}, user=frappe.session.user
 			)
 			if subject in grouped_subjects_to_avoid:
-				print("group subject alrady done", subject)
 				continue
-			available_periods = durations
+			available_periods = copy.deepcopy(durations)
+			allowed_same_day_subject = False
 			no_available_periods = False
-			print("durations", durations)
 			for number_of_times in range(subject.number_of_times):
-				print("num loop", number_of_times)
 				if no_available_periods: 
 					timetable_errors.append([subject.subject, subject.number_of_times - number_of_times])
 					break
 				while True:
-					print("avail loop")
 					if len(available_periods) == 0:
-						print("No available periods")
-						no_available_periods = True
-						break
+						if not allowed_same_day_subject:
+							available_periods = copy.deepcopy(durations)
+							allowed_same_day_subject = True
+						else:
+							no_available_periods = True
+							break
 					random_day = random.choice(list(available_periods.keys()))
-					print("random day", random_day)
 					if len(available_periods[random_day]) > 0:
 						detail = []
 						period = available_periods[random_day][0]
-						print("period", period)
 						if subject.group:
 							group_subjects = [sub for sub in subjects if sub.group == subject.group]
 							detail = [self.add_timetable_detail(sub, random_day, period[0], period[1]) for sub in group_subjects]
@@ -68,8 +66,10 @@ class StudentGroupTimetableTool(Document):
 							detail = self.add_timetable_detail(subject, random_day, period[0], period[1])
 						success = self.add_detail_to_timetable(detail, timetable)
 						available_periods[random_day].remove(period)
-						if success: break
-						print("after removing blocked period", available_periods) 
+						if success: 
+							durations[random_day].remove(period)
+							del available_periods[random_day]
+							break
 					else:
 						del available_periods[random_day]
 		return dict(
@@ -77,21 +77,46 @@ class StudentGroupTimetableTool(Document):
 			timetable_errors=timetable_errors
 		)
 
+	def validate_time(self, detail):
+		"""Validates if Course Start Date is greater than Course End Date"""
+		if get_datetime(detail["start_time"]) > get_datetime(detail["end_time"]):
+			frappe.throw(_("Timetable Start Time cannot be greater than Timetable End Time for {}, start_time {}, end_time {}.".format(detail["day"], detail["start_time"], detail["end_time"])))
+
+	def validate_timetable_detail(self, detail, timetable):
+		self.validate_time(detail)
+		from erpnext.education.utils import validate_timetable_overlap
+
+		# Validate overlapping timetable.
+		instructor_overlap = validate_timetable_overlap(detail, "instructor")
+		timetable_overlap = validate_timetable_overlap(detail, "parent", timetable)
+		room_overlap = False
+		if "room" in detail:
+			room_overlap = validate_timetable_overlap(detail, "room")
+
+		if instructor_overlap or timetable_overlap or room_overlap:
+			return False
+		else: 
+			return True
+
 	def add_detail_to_timetable(self, detail, timetable):
 		if type(detail) == list:
 			for det in detail:
-				timetable.append("timetable_details", det)
+				valid = self.validate_timetable_detail(det, timetable)
+				if not valid: break	
 		else:
+			valid = self.validate_timetable_detail(detail, timetable)
+		if valid :
 			timetable.append("timetable_details", detail)
-		try:
 			timetable.save()
-			return True
-		except IndexError:
-			print("Fail")
-			return False
+			
+		return valid
+
 
 	def create_timetable(self):
-		frappe.get_last_doc('Student Group Timetable', filters={"student_group": self.student_group}).delete()
+		if frappe.db.exists({'doctype': 'Student Group Timetable', "student_group": self.student_group}):
+			timetable = frappe.db.get_value('Student Group Timetable', {"student_group": self.student_group}, 'name')
+			frappe.db.delete("Student Group Timetable Detail", {"parent": timetable})
+			frappe.db.delete("Student Group Timetable", {"name": timetable})
 		timetable = frappe.get_doc({
 			'doctype': 'Student Group Timetable',
 			'student_group': self.student_group,
