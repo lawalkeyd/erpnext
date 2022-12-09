@@ -1,0 +1,128 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-12-07 08:35:14.385895",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "week",
+  "column_break_2",
+  "subject",
+  "topics_section",
+  "topics_taught",
+  "observation_section",
+  "class_rating",
+  "rating_reasons",
+  "column_break_9",
+  "class_activity",
+  "evaluations_section",
+  "issue",
+  "recommedations_section",
+  "recommendations"
+ ],
+ "fields": [
+  {
+   "fieldname": "week",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Week ",
+   "options": "Education Week",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "subject",
+   "fieldtype": "Link",
+   "label": "Subject",
+   "options": "Subject"
+  },
+  {
+   "fieldname": "topics_section",
+   "fieldtype": "Section Break",
+   "label": "Topics"
+  },
+  {
+   "fieldname": "topics_taught",
+   "fieldtype": "Table",
+   "label": "Topics Taught",
+   "options": "Scheme Topic",
+   "reqd": 1
+  },
+  {
+   "fieldname": "observation_section",
+   "fieldtype": "Section Break",
+   "label": "Observation"
+  },
+  {
+   "description": "On a scale of 1-5, rate the lesson, rate the class based on the attitude, punctuality and response of the students, achievement of lesson aims and assessment results",
+   "fieldname": "class_rating",
+   "fieldtype": "Rating",
+   "label": "Lesson rating"
+  },
+  {
+   "description": "Explain your reasons for this rating",
+   "fieldname": "rating_reasons",
+   "fieldtype": "Small Text",
+   "label": "Rating Reasons"
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Please describe concisely what was achieved this week",
+   "fieldname": "class_activity",
+   "fieldtype": "Small Text",
+   "label": "Class Activity"
+  },
+  {
+   "fieldname": "evaluations_section",
+   "fieldtype": "Section Break",
+   "label": "Evaluations"
+  },
+  {
+   "fieldname": "issue",
+   "fieldtype": "Table",
+   "label": "Issue",
+   "options": "Report School Issue"
+  },
+  {
+   "fieldname": "recommendations",
+   "fieldtype": "Table",
+   "label": "Recommendations",
+   "options": "Report Recommendation"
+  },
+  {
+   "fieldname": "recommedations_section",
+   "fieldtype": "Section Break",
+   "label": "Recommedations"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2022-12-08 09:55:43.148664",
+ "modified_by": "Administrator",
+ "module": "Education",
+ "name": "School Report",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}
