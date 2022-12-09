@@ -1,0 +1,56 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:Week-{week}-{start_date}",
+ "creation": "2022-11-28 09:35:22.874642",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "week",
+  "start_date",
+  "end_date",
+  "week_type"
+ ],
+ "fields": [
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Start Date"
+  },
+  {
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "End Date"
+  },
+  {
+   "default": "Teaching",
+   "fieldname": "week_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Week Type",
+   "options": "Teaching\nActivity",
+   "reqd": 1
+  },
+  {
+   "fieldname": "week",
+   "fieldtype": "Text",
+   "in_list_view": 1,
+   "label": "Week",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-11-30 09:11:54.984643",
+ "modified_by": "Administrator",
+ "module": "Education",
+ "name": "Education Week",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

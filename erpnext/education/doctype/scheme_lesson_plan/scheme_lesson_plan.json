@@ -1,0 +1,41 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-12-06 17:08:25.349949",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "lesson_plan",
+  "main_idea"
+ ],
+ "fields": [
+  {
+   "fieldname": "lesson_plan",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Lesson Plan",
+   "options": "Lesson Plan",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "main_idea",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Main Idea",
+   "read_only": 1,
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-12-06 17:39:24.317064",
+ "modified_by": "Administrator",
+ "module": "Education",
+ "name": "Scheme Lesson Plan",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

@@ -36,15 +36,16 @@ class SubjectEnrollmentTool(Document):
 	@frappe.whitelist()
 	def enroll_students(self):
 		total = len(self.students)
-		for i, stud in enumerate(self.students):
-			frappe.publish_realtime(
-				"subject_enrollment_tool", dict(progress=[i + 1, total]), user=frappe.session.user
-			)
-			subj_enrollment = frappe.new_doc("Subject Enrollment")
-			subj_enrollment.student = stud.student
-			subj_enrollment.program_enrollment = stud.enrollment
-			subj_enrollment.course = self.subject
-			subj_enrollment.enrollment_date = frappe.utils.nowdate()
-			subj_enrollment.save()
+		for subject in self.subjects:
+			for i, stud in enumerate(self.students):
+				frappe.publish_realtime(
+					"subject_enrollment_tool", dict(progress=[i + 1, total]), user=frappe.session.user
+				)
+				subj_enrollment = frappe.new_doc("Subject Enrollment")
+				subj_enrollment.student = stud.student
+				subj_enrollment.program_enrollment = stud.enrollment
+				subj_enrollment.course = subject.subject
+				subj_enrollment.enrollment_date = frappe.utils.nowdate()
+				subj_enrollment.save()
 
-		frappe.msgprint(_("{0} Students have been enrolled").format(total))
+			frappe.msgprint(_("{0} Students have been enrolled").format(total))

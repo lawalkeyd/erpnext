@@ -1,0 +1,138 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-12-01 10:36:19.834343",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "scheme_of_work",
+  "column_break_2",
+  "main_idea",
+  "section_break_4",
+  "learning_intentions",
+  "language_focuses",
+  "column_break_5",
+  "learning_outcomes",
+  "resources_section",
+  "resources_required",
+  "previous_knowledge",
+  "lesson_introduction",
+  "column_break_13",
+  "lesson_actvities",
+  "plenary_reflections",
+  "homework"
+ ],
+ "fields": [
+  {
+   "fieldname": "scheme_of_work",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Scheme",
+   "options": "Scheme Of Work",
+   "reqd": 1
+  },
+  {
+   "fieldname": "main_idea",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Big Question/Main Idea",
+   "reqd": 1
+  },
+  {
+   "fieldname": "learning_intentions",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Learning Intentions",
+   "reqd": 1
+  },
+  {
+   "fieldname": "language_focuses",
+   "fieldtype": "Small Text",
+   "label": "Language focuses"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "learning_outcomes",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Learning Outcomes",
+   "reqd": 1
+  },
+  {
+   "fieldname": "resources_section",
+   "fieldtype": "Section Break",
+   "label": "Resources"
+  },
+  {
+   "fieldname": "resources_required",
+   "fieldtype": "Small Text",
+   "label": "Resources Required"
+  },
+  {
+   "fieldname": "previous_knowledge",
+   "fieldtype": "Small Text",
+   "label": "Any specific subject knowledge required"
+  },
+  {
+   "fieldname": "lesson_introduction",
+   "fieldtype": "Small Text",
+   "label": "Introducing the Lesson"
+  },
+  {
+   "fieldname": "lesson_actvities",
+   "fieldtype": "Small Text",
+   "label": "Lesson Activities"
+  },
+  {
+   "fieldname": "plenary_reflections",
+   "fieldtype": "Small Text",
+   "label": "Plenary/Reflections/Assessment"
+  },
+  {
+   "fieldname": "homework",
+   "fieldtype": "Small Text",
+   "label": "Homework"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_4",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_13",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2022-12-06 16:35:51.166533",
+ "modified_by": "Administrator",
+ "module": "Education",
+ "name": "Lesson Plan",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1,
+ "track_seen": 1
+}

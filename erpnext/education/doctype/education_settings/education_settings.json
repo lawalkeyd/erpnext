@@ -15,6 +15,9 @@
   "academic_term_reqd",
   "user_creation_skip",
   "section_break_7",
+  "calculate_weeks",
+  "week",
+  "instructor_records_section",
   "instructor_created_by",
   "section_break_12",
   "use_default_criteria",
@@ -69,7 +72,8 @@
   },
   {
    "fieldname": "section_break_7",
-   "fieldtype": "Section Break"
+   "fieldtype": "Section Break",
+   "label": "Weeks Table"
   },
   {
    "default": "Full Name",
@@ -129,11 +133,27 @@
    "fieldtype": "Table",
    "label": "Assessment Criteria",
    "options": "Subject Assessment Criteria"
+  },
+  {
+   "fieldname": "week",
+   "fieldtype": "Table",
+   "label": "Weeks",
+   "options": "Education Week"
+  },
+  {
+   "fieldname": "instructor_records_section",
+   "fieldtype": "Section Break",
+   "label": "Instructor Records"
+  },
+  {
+   "fieldname": "calculate_weeks",
+   "fieldtype": "Button",
+   "label": "Calculate Weeks"
   }
  ],
  "issingle": 1,
  "links": [],
- "modified": "2022-10-20 09:59:50.652621",
+ "modified": "2022-11-29 09:50:36.767148",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Education Settings",

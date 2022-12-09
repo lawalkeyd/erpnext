@@ -6,3 +6,16 @@ frappe.ui.form.on('Education Settings', {
 
 	}
 });
+
+frappe.ui.form.on("Education Settings", "calculate_weeks", function(frm) {
+	frm.set_value("week",[]);
+	frappe.call({
+		method: "calculate_weeks",
+		doc:frm.doc,
+		callback: function(r) {
+			if(r.message) {
+				frm.set_value("week", r.message);
+			}
+		}
+	});
+})
