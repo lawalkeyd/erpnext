@@ -2,7 +2,7 @@
  "actions": [],
  "allow_import": 1,
  "allow_rename": 1,
- "autoname": "format:{course_name}-{class}",
+ "autoname": "format:{course_name}-{program}",
  "creation": "2015-09-07 12:39:55.181893",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -10,7 +10,7 @@
   "school_subject",
   "course_name",
   "column_break_3",
-  "class",
+  "program",
   "department",
   "section_break_6",
   "topics",
@@ -80,13 +80,6 @@
    "label": "Description"
   },
   {
-   "fieldname": "class",
-   "fieldtype": "Link",
-   "label": "Class",
-   "options": "Class",
-   "reqd": 1
-  },
-  {
    "fieldname": "school_subject",
    "fieldtype": "Link",
    "label": "School Subject",
@@ -97,7 +90,8 @@
    "fieldname": "subject_instructors",
    "fieldtype": "Table",
    "label": "Subject Instructors",
-   "options": "Subject Instructor"
+   "options": "Subject Instructor",
+   "reqd": 1
   },
   {
    "fieldname": "instructors_section",
@@ -107,11 +101,18 @@
   {
    "fieldname": "column_break_3",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "program",
+   "fieldtype": "Link",
+   "label": "Class",
+   "options": "Class",
+   "reqd": 1
   }
  ],
  "image_field": "hero_image",
  "links": [],
- "modified": "2022-10-14 11:36:23.095991",
+ "modified": "2022-11-14 12:46:49.370498",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Subject",

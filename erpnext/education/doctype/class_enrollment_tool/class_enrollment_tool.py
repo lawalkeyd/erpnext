@@ -64,7 +64,6 @@ class ClassEnrollmentTool(Document):
 					for student in students:
 						if student.student in [d.student for d in inactive_students]:
 							students.remove(student)
-
 		if students:
 			return students
 		else:

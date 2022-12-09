@@ -51,10 +51,10 @@ class SubjectSchedule(Document):
 
 		# Validate overlapping course schedules.
 		if self.student_group:
-			validate_overlap_for(self, "Course Schedule", "student_group")
+			validate_overlap_for(self, "Subject Schedule", "student_group")
 
-		validate_overlap_for(self, "Course Schedule", "instructor")
-		validate_overlap_for(self, "Course Schedule", "room")
+		validate_overlap_for(self, "Subject Schedule", "instructor")
+		validate_overlap_for(self, "Subject Schedule", "room")
 
 		# validate overlapping assessment schedules.
 		if self.student_group:

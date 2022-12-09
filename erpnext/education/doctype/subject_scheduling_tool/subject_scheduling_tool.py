@@ -109,7 +109,7 @@ class SubjectSchedulingTool(Document):
 		"""Makes a new Course Schedule.
 		:param date: Date on which Course Schedule will be created."""
 
-		course_schedule = frappe.new_doc("Course Schedule")
+		course_schedule = frappe.new_doc("Subject Schedule")
 		course_schedule.student_group = self.student_group
 		course_schedule.course = self.course
 		course_schedule.instructor = self.instructor

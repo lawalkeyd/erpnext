@@ -2,6 +2,7 @@
 
 import frappe
 from frappe import _
+from frappe.utils import get_datetime
 
 
 class OverlapError(frappe.ValidationError):
@@ -26,13 +27,47 @@ def validate_overlap_for(doc, doctype, fieldname, value=None):
 			OverlapError,
 		)
 
+def validate_timetable_overlap(doc, fieldname, value=None):
+	"""Checks timetable detail overlap for specified field.
+
+	:param fieldname: Checks Overlap for this field
+	"""
+	print("doc", type(doc["start_time"]), type(doc["end_time"]), doc)
+	timeta = frappe.db.get_list(
+		"Student Group Timetable Detail",
+		filters={"start_time": doc["start_time"]},
+		fields=["name", "start_time"]
+	)
+	print("timeta", timeta)
+	existing = frappe.db.sql(
+		"""select name, start_time, end_time from `tabStudent Group Timetable Detail`
+		where `{0}`=%(val)s and day = %(day)s and
+		(
+			(start_time > %(start_time)s and start_time < %(end_time)s) or
+			(end_time > %(start_time)s and end_time < %(end_time)s) or
+			(%(start_time)s > start_time and %(start_time)s < end_time) or
+			(%(start_time)s = start_time and %(end_time)s = end_time))
+		 	""".format(
+			fieldname
+		),
+		{
+			"val": value or doc.get(fieldname),
+			"start_time": doc["start_time"],
+			"end_time": doc["end_time"],
+			"day": doc["day"],
+		},
+		as_dict=True,
+	)
+	print("query values", doc.get(fieldname), value, type(doc["start_time"]),type(doc["end_time"]), doc["day"])
+	print(existing, "existing")
+	return True if existing else False	
 
 def get_overlap_for(doc, doctype, fieldname, value=None):
 	"""Returns overlaping document for specified field.
 
 	:param fieldname: Checks Overlap for this field
 	"""
-
+	print("overlap", doc.from_time, type(doc.from_time))
 	existing = frappe.db.sql(
 		"""select name, from_time, to_time from `tab{0}`
 		where `{1}`=%(val)s and schedule_date = %(schedule_date)s and
@@ -87,6 +122,59 @@ def get_current_student():
 		return frappe.get_doc("Student", student_id)
 	except (IndexError, frappe.DoesNotExistError):
 		return None
+
+def get_current_guardian():
+	"""Returns current guardin from frappe.session.user
+
+	Returns:
+	        object: Guardian Document
+	"""
+	email = frappe.session.user
+	if email in ("Administrator", "Guest"):
+		return None
+	try:
+		return frappe.get_all("Guardian", {"email_address": email}, ["name"])[0].name
+	except (IndexError, frappe.DoesNotExistError):
+		return None
+
+def get_guardian_students():
+	guardian = get_current_guardian()
+	student_list = frappe.get_all("Student Guardian", filters={"guardian": guardian}, fields=["parent"])
+	return [ student["parent"] for student in student_list ]
+
+def get_guardian_items(item):
+	"""Returns a list of students fees' dicts to be displayed on the portal
+	Fees are returned based on the following logic
+	        is_published and (student_is_enrolled or student_can_self_enroll)
+
+	Returns:
+	        list of dictionary: List of all programs and to be displayed on the portal along with access rights
+	"""
+
+	students_dict = {}
+	students = get_guardian_students()
+	for student in students:
+		if item == "Fees":
+			data = frappe.get_list("Fees", filters={
+				"student": student
+			},
+			fields=['currency', 'name', 'program', "outstanding_amount", "grand_total", "academic_year", "academic_term", "currency", "student_name"],
+			)
+			students_dict[student] = data
+	return students_dict
+
+def get_student_fee(name):
+	"""
+	Returns Student Fee for Portal View Upon checking guardian has access
+	"""
+	fee = frappe.get_doc("Fees", name)
+	guardian_students = get_guardian_students()
+	if fee.student not in guardian_students:
+		return None
+	return fee
+
+
+
 
 
 def get_portal_programs():
