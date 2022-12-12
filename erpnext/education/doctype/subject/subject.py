@@ -9,6 +9,8 @@ import frappe
 from frappe import _
 from frappe.model.document import Document
 
+from erpnext.education.utils import get_user_id_from_instructor
+from frappe.permissions import add_user_permission
 
 class Subject(Document):
 	def validate(self):
@@ -35,6 +37,18 @@ class Subject(Document):
 			if topic_doc.topic_content:
 				topic_data.append(topic_doc)
 		return topic_data
+
+	def before_save(self):
+		for instructor in self.subject_instructors:
+			user_id = get_user_id_from_instructor(instructor.instructor)
+			roles = frappe.get_roles(user_id)
+			if frappe.db.exists("User Permission", {"allow": "Employee", "for_value": self.name, "user": user_id}):
+				continue
+			elif "Education Manager" in roles:
+				continue	
+			else:
+				add_user_permission("Subject", self.name, user_id)
+
 
 
 @frappe.whitelist()
