@@ -5,10 +5,9 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "program",
   "student",
   "student_name",
-  "program",
-  "student_batch",
   "include_all_assessment",
   "include_assessment_criteria",
   "show_marks",
@@ -29,8 +28,7 @@
    "fieldname": "student",
    "fieldtype": "Link",
    "label": "Student",
-   "options": "Student",
-   "reqd": 1
+   "options": "Student"
   },
   {
    "fieldname": "student_name",
@@ -44,12 +42,6 @@
    "label": "Program",
    "options": "Class",
    "reqd": 1
-  },
-  {
-   "fieldname": "student_batch",
-   "fieldtype": "Link",
-   "label": "Batch",
-   "options": "Student Batch Name"
   },
   {
    "default": "1",
@@ -137,7 +129,7 @@
  "hide_toolbar": 1,
  "issingle": 1,
  "links": [],
- "modified": "2022-10-26 12:35:36.551712",
+ "modified": "2022-12-12 08:06:22.492451",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Student Report Generation Tool",

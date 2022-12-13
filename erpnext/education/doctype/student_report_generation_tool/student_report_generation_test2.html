@@ -250,6 +250,7 @@ p, label, td {
 
 
 <div class="page-break report-container">
+	{% for student in doc.students %}
 
 	<div id="header-html" class="hidden-pdf">
 		<div class="row print-heading-container">
@@ -266,8 +267,8 @@ p, label, td {
 			</div>
 
 			<div class="col-xs-3 print-heading">
-				{% if student_image %}
-				<img src="{{ student_image }}" alt="" class="student-image" srcset="">
+				{% if result_info.get(student).get('student_image') %}
+				<img src="result_info.get(student).get('student_image')" alt="" class="student-image" srcset="">
 				{% endif %}
 			</div>
 		</div>
@@ -348,7 +349,7 @@ p, label, td {
 						<tr class="table-heading-row">
 							<td style="width: {{ 650//(assessment_groups|length + 1) }}px">{{ _("Subject") }}</td>
 							{% for assessment_group in assessment_groups %}
-								{% if (assessment_result.get(course) and assessment_result.get(course).get(assessment_group) and assessment_result.get(course).get(assessment_group).get('Final Grade')) %}
+								{% if assessment_result.get(student) and (assessment_result.get(student).get(course) and assessment_result.get(student).get(course).get(assessment_group) and assessment_result.get(student).get(course).get(assessment_group).get('Final Grade')) %}
 									<td> {{ assessment_group }}</td>
 								{% endif %}
 								{% if doc.include_assessment_criteria %}
@@ -366,26 +367,28 @@ p, label, td {
 						{% for assessment_group in assessment_groups %}
 							{% if doc.include_assessment_criteria %}
 								{% for criteria in default_criteria %}
-									{% if (assessment_result.get(course) and assessment_result.get(course).get(assessment_group) and assessment_result.get(course).get(doc.assessment_group).get(criteria)) %}
+									{% if (assessment_result.get(student).get(course) and assessment_result.get(student).get(course).get(assessment_group) and assessment_result.get(student).get(course).get(doc.assessment_group).get(criteria)) %}
 									<td>
-										{{ assessment_result.get(course).get(doc.assessment_group).get(criteria).get(result_data) }}
+										{{ assessment_result.get(student).get(course).get(doc.assessment_group).get(criteria).get(result_data) }}
 									</td>
 									{% else %}
 									<td></td>
 									{% endif %}
 								{% endfor %}
 							{% else %}
-								{% if (assessment_result.get(course) and assessment_result.get(course).get(assessment_group) and assessment_result.get(course).get(assessment_group).get('Final Grade')) %}
-									<td>{{ assessment_result.get(course).get(assessment_group).get('Final Grade') }}</td>
+								{% if assessment_result.get(student) and (assessment_result.get(student).get(course) and assessment_result.get(student).get(course).get(assessment_group) and assessment_result.get(student).get(course).get(assessment_group).get('Final Grade')) %}
+									<td>{{ assessment_result.get(student).get(course).get(assessment_group).get('Final Grade') }}</td>
 								{% endif %}
 							{% endif %}
 						{% endfor %}
+						{% if assessment_result.get(student) %}
 						<td>
-							{{ assessment_result.get(course).get(doc.assessment_group).get('Final Grade').get('score') }}
+							{{ assessment_result.get(student).get(course).get(doc.assessment_group).get('Final Grade').get('score') }}
 						</td>
 						<td>
-							{{ assessment_result.get(course).get(doc.assessment_group).get('Final Grade').get('grade') }}
+							{{ assessment_result.get(student).get(course).get(doc.assessment_group).get('Final Grade').get('grade') }}
 						</td>
+						{% endif %}
 					</tr>
 				{% endfor %}
 			</table>
@@ -394,6 +397,7 @@ p, label, td {
 
 	<div class="row section-break pbi_avoid">
 		<div class="col-xs-6">
+			{% if result_info.get(student).get('instructor_remarks')%}
 			<table class="table table-bordered table-condensed">
 				<tr class="table-heading-row">
 					<td>{{ _("PSYCHOMOTOR SKILLS") }}</td>
@@ -402,7 +406,7 @@ p, label, td {
 				<tr>
 					<td>Verbal Skills</td>
 					{% for input in range(1, 6) %}
-						{% if input <= remarks.verbal_skills %}
+						{% if input <= result_info.get(student).get('instructor_remarks').verbal_skills %}
 							<td><p class="rating-star">&starf;</p></td>
 						{% else %}
 							<td></td>	
@@ -418,7 +422,7 @@ p, label, td {
 				<tr>
 					<td>Verbal Skills</td>
 					{% for input in range(1, 6) %}
-						{% if input <= remarks.verbal_skills %}
+						{% if input <= result_info.get(student).get('instructor_remarks').verbal_skills %}
 							<td><p class="rating-star">&starf;</p></td>
 						{% else %}
 							<td></td>
@@ -428,7 +432,7 @@ p, label, td {
 				<tr>
 					<td>Punctuality</td>
 					{% for input in range(1, 6) %}
-						{% if input <= remarks.punctuality %}
+						{% if input <= result_info.get(student).get('instructor_remarks').punctuality %}
 							<td><p class="rating-star">&starf;</p></td>
 						{% else %}
 							<td></td>
@@ -438,7 +442,7 @@ p, label, td {
 				<tr>
 					<td>Mental Alertness</td>
 					{% for input in range(1, 6) %}
-						{% if input <= remarks.mental_alertness %}
+						{% if input <= result_info.get(student).get('instructor_remarks').mental_alertness %}
 							<td><p class="rating-star">&starf;</p></td>
 						{% else %}
 							<td></td>
@@ -448,7 +452,7 @@ p, label, td {
 				<tr>
 					<td>Neatness</td>
 					{% for input in range(1, 6) %}
-						{% if input <= remarks.verbal_skills %}
+						{% if input <= result_info.get(student).get('instructor_remarks').verbal_skills %}
 							<td><p class="rating-star">&starf;</p></td>
 						{% else %}
 							<td></td>
@@ -458,7 +462,7 @@ p, label, td {
 				<tr>
 					<td>Politeness</td>
 					{% for input in range(1, 6) %}
-						{% if input <= remarks.politeness %}
+						{% if input <= result_info.get(student).get('instructor_remarks').politeness %}
 							<td><p class="rating-star">&starf;</p></td>
 						{% else %}
 							<td></td>
@@ -468,7 +472,7 @@ p, label, td {
 				<tr>
 					<td>Honesty</td>
 					{% for input in range(1, 6) %}
-						{% if input <= remarks.honesty %}
+						{% if input <= result_info.get(student).get('instructor_remarks').honesty %}
 							<td><p class="rating-star">&starf;</p></td>
 						{% else %}
 							<td></td>
@@ -478,7 +482,7 @@ p, label, td {
 				<tr>
 					<td>Relationship with Peers</td>
 					{% for input in range(1, 6) %}
-						{% if input <= remarks.peers_relationship %}
+						{% if input <= result_info.get(student).get('instructor_remarks').peers_relationship %}
 							<td><p class="rating-star">&starf;</p></td>
 						{% else %}
 							<td></td>
@@ -486,26 +490,29 @@ p, label, td {
 					{% endfor %}
 				</tr>
 			</table>
+			{% endif%}
 			<div class="row">
 				{% if grading_info %}
-					<div class="col-xs-6"><label>Overall Position: {{ grading_info.overall_position }}</label></div>
-					<div class="col-xs-6"><label>Class Position: {{grading_info.student_group_position }}</label></div>
+					<div class="col-xs-6"><label>Overall Position: {{ result_info.get(student).get('grading_info').overall_position }}</label></div>
+					<div class="col-xs-6"><label>Class Position: {{result_info.get(student).get('instructor_remarks').student_group_position }}</label></div>
 				{% endif %}
 			</div>
 			<div class="row">
 				<div class="col-xs-12">
-					{% if grading_info.comment %}
+					{% if result_info.get(student).get('grading_info').comment %}
 						<label>Academic Manager's Comments </label>
 						<p>
-							{{ grading_info.comment }}
+							{{ result_info.get(student).get('grading_info').comment }}
 						</p>
 					{% endif %}
 				</div>
 				<div class="col-xs-12">
 					<label>Instructor's Comments </label>
+					{% if result_info.get(student).get('instructor_remarks').comments%}
 					<p>
-						{{ remarks.comment }}
+						{{ result_info.get(student).get('instructor_remarks').comment }}
 					</p>
+					{% endif %}
 				</div>
 			</div>
 		</div>
@@ -538,15 +545,15 @@ p, label, td {
 			<table class="table table-bordered table-condensed">
 				<tr>
 					<td><label>No. of days school opened</label> </td>
-					<td>{{ doc.attendance.get("Present") + doc.attendance.get("Absent") }}</td>
+					<td>{{ result_info.get(student).get('attendance').get("Present") + result_info.get(student).get('attendance').get("Absent") }}</td>
 				</tr>
 				<tr>
 					<td><label>No. of days present</label></td>
-					<td>{{ doc.attendance.get("Present") if doc.attendance.get("Present") != None else '0' }}</td>
+					<td>{{ result_info.get(student).get('attendance').get("Present") if result_info.get(student).get('attendance').get("Present") != None else '0' }}</td>
 				</tr>
 				<tr>
 					<td><label>No. of days absent</label></td>
-					<td>{{ doc.attendance.get("Absent") }}</td>
+					<td>{{ result_info.get(student).get('attendance').get("Absent") }}</td>
 				</tr>
 			</table>
 			<table class="table table-bordered table-condensed">
@@ -572,7 +579,9 @@ p, label, td {
 		</div>
 	</div>
 	{% endif %}
+	{% endfor %}
 </div>
+
 <div class="#chart">Chartting</div>
 <script src="https://unpkg.com/frappe-charts@1.1.0"></script>
 <script>

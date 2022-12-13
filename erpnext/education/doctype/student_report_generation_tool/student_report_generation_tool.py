@@ -23,38 +23,49 @@ class StudentReportGenerationTool(Document):
 @frappe.whitelist()
 def preview_report_card(doc):
 	doc = frappe._dict(json.loads(doc))
-	doc.students = [doc.student]
-	if not (doc.student_name and doc.student_batch):
-		program_enrollment = frappe.get_all(
-			"Class Enrollment",
-			fields=["student_batch_name", "student_name"],
-			filters={"student": doc.student, "docstatus": ("!=", 2), "academic_year": doc.academic_year},
-		)
-		if program_enrollment:
-			doc.batch = program_enrollment[0].student_batch_name
-			doc.student_name = program_enrollment[0].student_name
+	if not doc.student:
+		students = frappe.db.get_list('Class Enrollment', pluck="student", filters={'program': doc.program, 'academic_year': doc.academic_year})
+		print("students", students)
+		doc.students = students
+	else:	
+		doc.students = [doc.student]
 
-	# get the assessment result of the selected student
 	values = get_formatted_result(
 		doc, get_course=True, get_all_assessment_groups=doc.include_all_assessment
 	)
 	grading_scale_name = frappe.db.get_value('Class', doc.program, 'grading_scale')
 	grading_scale = frappe.get_doc('Grading Scale', grading_scale_name)
-	assessment_result = values.get("assessment_result").get(doc.student)
 	courses = values.get("course_dict")
 	default_criteria = get_default_criteria()
 	settings = frappe.get_doc('Education Settings')
+	result_info = frappe._dict()
 
-	student_grading_info = get_student_class_grading_info(doc.program, doc.academic_year, doc.students[0], doc.assessment_group)
 	# get the assessment group as per the user selection
 	if doc.include_all_assessment:
 		assessment_groups = get_child_assessment_groups(doc.assessment_group)
 	else: 
 		assessment_groups = [ doc.assessment_group ]
+	for student in doc.students:
+		student_info = frappe._dict()
+		if not (doc.student_name and doc.student_batch):
+			program_enrollment = frappe.get_all(
+				"Class Enrollment",
+				fields=["student_batch_name", "student_name"],
+				filters={"student": student, "docstatus": ("!=", 2), "academic_year": doc.academic_year},
+			)
+			if program_enrollment:
+				student_info.batch = program_enrollment[0].student_batch_name
+				student_info.student_name = program_enrollment[0].student_name
 
-	# get the attendance of the student for that peroid of time.
-	doc.attendance = get_attendance_count(doc.students[0], doc.academic_year, doc.academic_term)
+		# get the assessment result of the selected student
+		student_info.assessment_result = values.get("assessment_result").get(student)
+		student_info.student_grading_info = get_student_class_grading_info(doc.program, doc.academic_year, student, doc.assessment_group)
 
+		# get the attendance of the student for that peroid of time.
+		student_info.attendance = get_attendance_count(student, doc.academic_year, doc.academic_term)
+		student_info.instructor_remarks = frappe.db.get_value('Instructor Remarks', {'assessment_group': doc.assessment_group, 'student': student}, ['verbal_skills', 'punctuality', 'mental_alertness', 'neatness', 'politeness', 'honesty', 'peers_relationship', 'comment'], as_dict=1)
+		student_info.student_image = frappe.db.get_value('Student', student, 'image')
+		result_info[student] = student_info
 	template = (
 		"erpnext/education/doctype/student_report_generation_tool/student_report_generation_test2.html"
 	)
@@ -66,23 +77,18 @@ def preview_report_card(doc):
 		frappe._dict({"letter_head": doc.letterhead}), not doc.add_letterhead
 	)
 
-	instructor_remarks = frappe.db.get_value('Instructor Remarks', {'assessment_group': doc.assessment_group, 'student': doc.student}, ['verbal_skills', 'punctuality', 'mental_alertness', 'neatness', 'politeness', 'honesty', 'peers_relationship', 'comment'], as_dict=1)
-	student_image = frappe.db.get_value('Student', doc.student, 'image')
-
 	html = frappe.render_template(
 		template,
 		{
 			"doc": doc,
-			"assessment_result": assessment_result,
+			"assessment_result": values,
 			"courses": courses,
 			"assessment_groups": assessment_groups,
 			"default_criteria": default_criteria,
-			"remarks": instructor_remarks,
 			"letterhead": letterhead and letterhead.get("content", None),
 			"add_letterhead": doc.add_letterhead if doc.add_letterhead else 0,
-			"student_image": student_image,
 			"settings": settings,
-			"grading_info": student_grading_info,
+			"result_info": result_info,
 			"grading_scale": grading_scale,
 		}, 
 	)
@@ -90,7 +96,7 @@ def preview_report_card(doc):
 		base_template_path, {"body": html, "title": "Report Card"}
 	)
 
-	frappe.response.filename = "Report Card " + doc.students[0] + ".pdf"
+	frappe.response.filename = "Report Card " + ".pdf"
 	frappe.response.filecontent = get_pdf(final_template, {"margin-right": "5mm", "margin-left": "5mm"})
 	frappe.response.type = "download"
 
