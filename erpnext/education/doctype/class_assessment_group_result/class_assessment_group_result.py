@@ -80,30 +80,27 @@ class ClassAssessmentGroupResult(Document):
 		
 
 def calculate_student_positions(student_list):
-	grades_list = sorted(student_list, key=lambda d: d['total_marks'], reverse=True)
-	
-	# sort grades into student groups
-	new_grades_list = grades_list
-	new_grades_list.sort(key=itemgetter("student_group"))
-	result = {}
-	for student_group, group in groupby(grades_list, key=itemgetter("student_group")):
-		result[student_group] = list(group)
+  # Sort the list of students by their total marks in descending order
+  sorted_students = sorted(student_list, key=lambda d: d['total_marks'], reverse=True)
 
-	updated_list = []
-	for student in grades_list:
-		# check if students have the same score
-		if len(updated_list) > 1:
-			previous_student = updated_list[-1]
-			
-			# check if student has the same score as previous student
-			if  student["total_marks"] == previous_student["total_marks"]:
-				student["student_group_position"] = previous_student["student_group_position"]
-				student["overall_position"] = previous_student["overall_position"]
-				updated_list.append(student)
-				continue
+  # Create a dictionary to store the positions for each student group
+  positions = {}
 
-		student["student_group_position"] = grades_list.index(student) + 1
-		student["overall_position"] = result[student_group].index(student) + 1
-		updated_list.append(student)
-	
-	return updated_list
+  # Iterate over the sorted list of students
+  for i, student in enumerate(sorted_students):
+    # If the student group is not already in the positions dictionary, add it
+    # with the current position (i + 1) as the value
+    if student["student_group"] not in positions:
+      positions[student["student_group"]] = i + 1
+
+    # Assign the student group position and overall position to the student
+    student["student_group_position"] = sorted_students.index(student) + 1
+    student["overall_position"] = positions[student["student_group"]]
+
+    # If the student has the same score as the previous student,
+    # use the same position for both
+    if i > 0 and student["total_marks"] == sorted_students[i - 1]["total_marks"]:
+      student["student_group_position"] = sorted_students[i - 1]["student_group_position"]
+      student["overall_position"] = sorted_students[i - 1]["overall_position"]
+
+  return sorted_students

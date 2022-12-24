@@ -7,6 +7,7 @@ class CBT {
 		this.get_quiz("initialise");
 		this.current_cbt_name = null;
 		this.current_question = null;
+		this.active = true;
 	}
 
 	initialise(data){
@@ -21,16 +22,23 @@ class CBT {
 
 
 	get_quiz(action) {
+		this.wrapper.innerHTML = '<div class="spinner-border" style="width: 3rem; height: 3rem;" role="status"><span class="sr-only">Loading...</span></div>'
 		frappe.call('erpnext.education.utils.get_current_cbt', {
 			cbt_name: this.name,
 			subject: this.course
 		}).then(res => {
+			// Hide the loading indicator
+			this.wrapper.innerHTML = '';
+			if (!res.message){
+				this.active = False
+			}
 			if (action === "refresh") {
 				this.make(res.message)
 			} else if (action === "initialise") {
 				this.initialise(res.message)
 			}
 		});
+
 	}
 
 	display_select_question_input(total_questions){
@@ -86,6 +94,34 @@ class CBT {
 			event.preventDefault();
 			event.returnValue = '';
 		});
+		// Set a counter to keep track of the number of times the user has tried
+		// to change or close the current tab
+		let counter = 0;
+
+		// Add an event listener to the blur event, which is triggered
+		// when the user moves focus away from the current window or tab
+		window.addEventListener('blur', () => {
+		if (this.active){
+			// Increment the counter
+			counter += 1;
+
+			// If the counter is less than 3, show a warning message to the user
+			if (counter < 3) {
+				// Show a warning message to the user
+				frappe.msgprint({
+					title: __('Warning'),
+					indicator: 'red',
+					message: __(`Stop Changing Tabs. This is examination malpractice. Your exam would be submitted if you continue.
+						You have been warned ${counter} times`)
+				});
+			}
+			// If the counter is equal to 3, send an API call to record the user's action
+			else if (counter === 3) {
+				this.navigate("submit")
+			}
+		}
+		});
+
 	}
 
 	initialiseTimer(duration) {
@@ -107,7 +143,7 @@ class CBT {
 			if (self.time_left <= 0) {
 				clearInterval(self.timer);
 				self.time_taken -= 1;
-				self.navigate("submit");
+				this.navigate("submit");
 			}
 		}, 1000);
 	}
@@ -160,6 +196,7 @@ class CBT {
 	}
 
 	navigate(direction) {
+		this.wrapper.innerHTML = '<div class="spinner-border" style="width: 3rem; height: 3rem;" role="status"><span class="sr-only">Loading...</span></div>'
 		this.disable()	
 		let subsequent_question;
 		this.select_question_input.disabled = true;
@@ -196,10 +233,11 @@ class CBT {
 			subsequent_question: subsequent_question
 		}).then(res => {
 			if (!res.message) {
-				frappe.throw(__("Something went wrong while submitting this question."))
+				frappe.throw(__("Something went wrong while submitting this question. Please refresh"))
 			}
 			this.wrapper.innerHTML = ''
 			if (direction === "submit"){
+				this.active = false;
 				if (this.is_time_bound) {
 					clearInterval(this.timer);
 					$(".lms-timer").text("");
@@ -281,7 +319,7 @@ class Question {
 	make_question() {
 		let question_wrapper = document.createElement('h5');
 		question_wrapper.classList.add('mt-3');
-		question_wrapper.innerHTML = `${this.current_question}${this.question.question}`;
+		question_wrapper.innerHTML = `<p class="text-primary">Question ${this.current_question}</p>` + this.question.question;
 		this.wrapper.appendChild(question_wrapper);
 	}
 

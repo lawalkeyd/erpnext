@@ -57,16 +57,21 @@
 {% endblock %}
 
 {% macro title() %}
-	<div class="mb-3">
+	<!-- <div class="mb-3">
 		<a href="/cbt/plan?class={{ program }}" class="text-muted">
 			{{_('Back to CBTs')}}
 		</a>
-	</div>
-	<div class="lms-title">
-		<h2>{{ plan.name }}</h2>
-		<div class="float-right">
-			<div class="lms-timer fond-weight-bold hide"></div>
+	</div> -->
+	<div class="card-body lms-title row">
+		<div class="col-7">
+			<h5 class="h4">CBT Portal</h5>
+			<h6 class="h6 mt-4">{{ plan.name }}</h6>
+		</div>
+
+		<div class="col-5">
+			<h6 class="lms-timer fond-weight-bold hide h6 text-danger"></h6>
 			<select id="lms-select" class="custom-select custom-select-lg">Go To</select>
+			<p>Jump To</p>
 		</div>
 	</div>
 {% endmacro %}
@@ -77,16 +82,20 @@
 {% endmacro %}
 
 {% macro quiz() %}
-<div class="mb-5">
+
+<div class="card mb-5">
 	{{ title() }}
 </div>
-<div id="quiz-wrapper">
+<div class="card">
+	<div id="quiz-wrapper" class="card-body">
+	</div>
 </div>
+
 {% endmacro %}
 
 {% block content %}
-<section class="section">
-	<div>
+<section class="section p-2">
+	<div class="jumbotron">
 		<div class='container pb-5'>
 				{{ quiz() }}
 			<div class="pull-right" {{ 'hidden' if content_type=='Quiz'}}>
@@ -108,9 +117,9 @@
 					var d = frappe.msgprint({
 						title: __('Important Notice'),
 						indicator: "red",
-						message: __(`This is a Time-Bound Quiz. <br><br>
+						message: __(`This is a Time-Bound Examination. <br><br>
 						A timer for <b>${duration}</b> will start, once you click on <b>Proceed</b>. <br><br>
-						If you fail to submit before the time is up, the Quiz will be submitted automatically.`),
+						If you fail to submit before the time is up, the Examination will be submitted automatically.`),
 						primary_action: {
 							label: __("Proceed"),
 							action: () => {
