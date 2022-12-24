@@ -1,6 +1,6 @@
 # Copyright (c) 2015, Frappe Technologies and contributors
 
-import frappe
+import frappe, random
 from frappe import _
 from frappe.utils import get_datetime
 
@@ -435,7 +435,7 @@ def get_current_cbt(cbt_name, subject):
     				'cbt': cbt_name,
 					'user': frappe.session.user,
 					'time_left': cbt.duration,
-					'questions': cbt.questions,
+					'questions': random.shuffle(cbt.questions) if cbt.randomize_questions else cbt.questions,
 					'current_question': 1
 				})
 			doc.insert()
@@ -457,6 +457,7 @@ def get_current_cbt(cbt_name, subject):
 			"question": formatted_question,
 			"activity": None,
 			"is_time_bound": True,
+			"prevent_tab_change": True if cbt.prevent_tab_change else False,
 			"duration":  current_cbt_exam.time_left,
 			"current_cbt": current_cbt_exam.name,
 			"total_questions": len(current_cbt_exam.questions),
@@ -471,6 +472,7 @@ def get_current_cbt(cbt_name, subject):
 			"question": formatted_question,
 			"activity": None,
 			"is_time_bound": True,
+			"prevent_tab_change": True if cbt.prevent_tab_change else False,
 			"duration": current_cbt_exam.time_left,
 			"current_cbt": current_cbt_exam.name,
 			"total_questions": len(current_cbt_exam.questions),

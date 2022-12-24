@@ -45,6 +45,9 @@ class CBT {
 		for (let i = 1; i <= parseInt(total_questions); i++) {
 			this.select_question_input.options[i] = new Option(i, i);
 		}
+		if (this.select_question_input.options[0].value == ""){
+			this.select_question_input.options[0].remove()
+		}
 		this.select_question_input.addEventListener('change', (e) => {
 			this.wrapper.innerHTML = "Loading";
 			this.navigate(parseInt(this.select_question_input.value));

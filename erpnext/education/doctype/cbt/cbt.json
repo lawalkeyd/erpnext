@@ -13,9 +13,12 @@
   "quiz_configuration_section",
   "passing_score",
   "max_attempts",
-  "grading_basis",
+  "randomize_questions",
+  "prevent_tab_change",
+  "is_active",
   "column_break_7",
   "duration",
+  "grading_basis",
   "amended_from"
  ],
  "fields": [
@@ -81,11 +84,30 @@
    "label": "Question",
    "options": "CBT Question",
    "reqd": 1
+  },
+  {
+   "default": "1",
+   "fieldname": "randomize_questions",
+   "fieldtype": "Check",
+   "label": "Randomize Questions"
+  },
+  {
+   "default": "1",
+   "fieldname": "prevent_tab_change",
+   "fieldtype": "Check",
+   "label": "Prevent Tab Change"
+  },
+  {
+   "default": "1",
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "label": "Is Active",
+   "reqd": 1
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-10-12 10:45:40.908780",
+ "modified": "2022-12-24 11:42:11.449589",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "CBT",
