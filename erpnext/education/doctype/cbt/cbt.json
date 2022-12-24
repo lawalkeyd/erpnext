@@ -101,13 +101,16 @@
    "default": "1",
    "fieldname": "is_active",
    "fieldtype": "Check",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Is Active",
    "reqd": 1
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-12-24 11:42:11.449589",
+ "modified": "2022-12-24 12:44:50.785608",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "CBT",
