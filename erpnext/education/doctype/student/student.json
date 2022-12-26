@@ -37,6 +37,7 @@
   "city",
   "state",
   "section_break_18",
+  "parents_title",
   "guardians",
   "section_break_20",
   "siblings",
@@ -260,11 +261,17 @@
    "fieldtype": "Select",
    "label": "Parent Marital Status",
    "options": "Married\nSingle\nDivorced\nWidowed"
+  },
+  {
+   "description": "Mr and Mrs Example",
+   "fieldname": "parents_title",
+   "fieldtype": "Data",
+   "label": "Parent/Guardian Title"
   }
  ],
  "image_field": "image",
  "links": [],
- "modified": "2022-10-31 10:53:43.014611",
+ "modified": "2022-12-26 11:14:18.838299",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Student",
