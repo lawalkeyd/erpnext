@@ -97,10 +97,14 @@
 <section class="section p-2">
 	<div class="jumbotron">
 		<div class='container pb-5'>
-				{{ quiz() }}
-			<div class="pull-right" {{ 'hidden' if content_type=='Quiz'}}>
-				{{ navigation() }}
-			</div>
+			{% if cbt.is_active %}
+					{{ quiz() }}
+				<div class="pull-right" {{ 'hidden' if content_type=='Quiz'}}>
+					{{ navigation() }}
+				</div>
+			{% else %}
+				<h4 class="h4">This CBT is not currently active. Please contact the administrator</h4>
+			{% endif %}
 		</div>
 	</div>
 </section>
@@ -109,7 +113,7 @@
 {% block script %}
 	<script src='/assets/erpnext/js/education/cbt/exam.js'></script>
 	<script>
-		{% if content_type == 'Quiz' %}
+		{% if cbt.is_active %}
 			const quiz_exit_button = 'View Exams'
 			
 			frappe.ready(() => {

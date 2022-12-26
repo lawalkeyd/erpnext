@@ -30,7 +30,7 @@ def get_context(context):
 		student = utils.get_current_student()
 		enrollment = utils.get_enrollment("subject", plan.course, student.name)
 		cbt_attempts = frappe.db.count('CBT Activity', {'enrollment': enrollment, "student": student.name})
-		if cbt_attempts >= cbt.max_attempts or not cbt.is_active:
+		if cbt_attempts >= cbt.max_attempts:
 			frappe.local.flags.redirect_location = "/cbt"
 			raise frappe.Redirect			
 
