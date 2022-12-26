@@ -68,7 +68,6 @@
    "fieldtype": "Data",
    "in_global_search": 1,
    "label": "First Name",
-   "permlevel": 1,
    "reqd": 1
   },
   {
@@ -80,8 +79,7 @@
    "fieldname": "last_name",
    "fieldtype": "Data",
    "in_global_search": 1,
-   "label": "Last Name",
-   "permlevel": 1
+   "label": "Last Name"
   },
   {
    "fieldname": "user",
@@ -271,7 +269,7 @@
  ],
  "image_field": "image",
  "links": [],
- "modified": "2022-12-26 11:14:18.838299",
+ "modified": "2022-12-26 16:07:42.133618",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Student",
