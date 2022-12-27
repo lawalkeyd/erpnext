@@ -98,9 +98,9 @@ def get_formatted_result(
 	cond5 = " and ar.assessment_group in (%s)" % (", ".join(["%s"] * len(assessment_groups)))
 	args_list += assessment_groups
 
-	if args.students:
-		cond6 = " and ar.student in (%s)" % (", ".join(["%s"] * len(args.students)))
-		args_list += args.students
+	# if args.students:
+	# 	cond6 = " and ar.student in (%s)" % (", ".join(["%s"] * len(args.students)))
+	# 	args_list += args.students
 
 	assessment_result = frappe.db.sql(
 		"""
