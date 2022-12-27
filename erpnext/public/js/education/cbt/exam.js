@@ -28,9 +28,16 @@ class CBT {
 			subject: this.course
 		}).then(res => {
 			// Hide the loading indicator
+			if (res.message.unenrolled){
+				frappe.msgprint({
+					title: __('Warning'),
+					indicator: 'red',
+					message: __(`You have not been registered for this examination. Contact the administrator`)
+				});
+			}
 			this.wrapper.innerHTML = '';
 			if (!res.message){
-				this.active = False
+				this.active = false
 			}
 			if (action === "refresh") {
 				this.make(res.message)

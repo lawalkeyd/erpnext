@@ -430,12 +430,15 @@ def get_current_cbt(cbt_name, subject):
 		if frappe.db.exists({"doctype": "Current CBT", "user": frappe.session.user, "cbt": cbt_name}):
 			current_cbt_exam = frappe.get_last_doc("Current CBT", filters={"cbt": cbt_name, "user": frappe.session.user})
 		else:
+			# change order of questions if randomize questions flag = True
+			if cbt.randomize_questions:
+				random.shuffle(cbt.questions) 
 			doc = frappe.get_doc({
     				'doctype': 'Current CBT',
     				'cbt': cbt_name,
 					'user': frappe.session.user,
 					'time_left': cbt.duration,
-					'questions': random.shuffle(cbt.questions) if cbt.randomize_questions else cbt.questions,
+					'questions': cbt.questions,
 					'current_question': 1
 				})
 			doc.insert()
@@ -479,6 +482,8 @@ def get_current_cbt(cbt_name, subject):
 			"current_question": current_cbt_exam.current_question,
 			"selected_option": selected_option
 		}
+	else: 
+		return {"unenrolled": True}
 
 @frappe.whitelist()
 def get_exam(quiz_name, course):

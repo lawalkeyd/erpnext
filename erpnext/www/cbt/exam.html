@@ -97,7 +97,7 @@
 <section class="section p-2">
 	<div class="jumbotron">
 		<div class='container pb-5'>
-			{% if cbt.is_active %}
+			{% if content.is_active %}
 					{{ quiz() }}
 				<div class="pull-right" {{ 'hidden' if content_type=='Quiz'}}>
 					{{ navigation() }}
@@ -113,7 +113,7 @@
 {% block script %}
 	<script src='/assets/erpnext/js/education/cbt/exam.js'></script>
 	<script>
-		{% if cbt.is_active %}
+		{% if content.is_active %}
 			const quiz_exit_button = 'View Exams'
 			
 			frappe.ready(() => {

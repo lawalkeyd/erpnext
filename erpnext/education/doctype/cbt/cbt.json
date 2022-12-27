@@ -2,7 +2,7 @@
  "actions": [],
  "allow_import": 1,
  "allow_rename": 1,
- "autoname": "format:{title}-{DD}-{MM}-{YY}",
+ "autoname": "format:{title} {DD}-{MM}-{YY}",
  "creation": "2022-09-04 21:53:57.441432",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -108,9 +108,8 @@
    "reqd": 1
   }
  ],
- "is_submittable": 1,
  "links": [],
- "modified": "2022-12-24 12:44:50.785608",
+ "modified": "2022-12-26 22:32:53.289922",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "CBT",
@@ -161,7 +160,6 @@
    "role": "Education Manager",
    "select": 1,
    "share": 1,
-   "submit": 1,
    "write": 1
   }
  ],

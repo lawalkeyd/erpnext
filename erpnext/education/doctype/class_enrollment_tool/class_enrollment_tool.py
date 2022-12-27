@@ -7,6 +7,7 @@ from frappe import _
 from frappe.model.document import Document
 from frappe.utils import cint
 
+
 from erpnext.education.api import enroll_student
 
 
@@ -87,6 +88,7 @@ class ClassEnrollmentTool(Document):
 				prog_enrollment.student_batch_name = (
 					stud.student_batch_name if stud.student_batch_name else self.new_student_batch
 				)
+				prog_enrollment.docstatus = 1 #ToDo: remove hard coded value
 				prog_enrollment.save()
 			elif stud.student_applicant:
 				prog_enrollment = enroll_student(stud.student_applicant)
@@ -95,5 +97,6 @@ class ClassEnrollmentTool(Document):
 				prog_enrollment.student_batch_name = (
 					stud.student_batch_name if stud.student_batch_name else self.new_student_batch
 				)
+				prog_enrollment.docstatus = 1 #ToDo: remove hard coded value
 				prog_enrollment.save()
 		frappe.msgprint(_("{0} Students have been enrolled").format(total))
