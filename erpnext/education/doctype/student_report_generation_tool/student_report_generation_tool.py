@@ -66,7 +66,7 @@ def preview_report_card(doc):
 		frappe._dict({"letter_head": doc.letterhead}), not doc.add_letterhead
 	)
 
-	instructor_remarks = frappe.db.get_value('Instructor Remarks', {'assessment_group': doc.assessment_group, 'student': doc.student}, ['verbal_skills', 'punctuality', 'mental_alertness', 'neatness', 'politeness', 'honesty', 'peers_relationship', 'comment'], as_dict=1)
+	instructor_remarks = get_student_class_remark_info(doc.program, doc.academic_year, doc.students[0], doc.assessment_group)
 	student_image = frappe.db.get_value('Student', doc.student, 'image')
 
 	html = frappe.render_template(
@@ -100,6 +100,10 @@ def get_student_class_grading_info(student_class, academic_year, student, assess
 	student_result["subjects_info"] = class_result.get("subjects")
 	return student_result
 
+def get_student_class_remark_info(student_class, academic_year, student, assessment_group):
+	class_remarks = frappe.get_last_doc('Student Group Assessment Remarks', {"student_class": student_class, "assessment_group": assessment_group, "academic_year": academic_year}).as_dict()
+	student_remark = frappe.get_last_doc('Student Assessment Remark Information', filters={"student": student, "parent": class_remarks.name}).as_dict()
+	return student_remark
 
 def get_courses_criteria(courses):
 	course_criteria = frappe._dict()

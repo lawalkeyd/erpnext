@@ -62,7 +62,6 @@ class ClassAssessmentGroupResult(Document):
 				student_info["attainable_marks"] = attainable_marks
 				student_list.append(student_info)
 			student_list = calculate_student_positions(student_list)
-			print(student_list)
 
 			for subject, marks_data in subject_dict.items():
 				subject_info = {"subject": subject, "class_average":(marks_data["total"]/marks_data["students_no"])} 
