@@ -352,8 +352,8 @@ p, label, td {
 									<td> {{ assessment_group }}</td>
 								{% endif %}
 								{% if doc.include_assessment_criteria %}
-									{% for criteria in default_criteria %}
-										<td> {{ criteria }} </td>	
+									{% for criteria in doc.assessment_criteria %}
+										<td> {{ criteria.assessment_criteria }} </td>	
 									{% endfor%}
 								{% endif %}
 							{% endfor %}
@@ -365,10 +365,10 @@ p, label, td {
 						<td>{{ course }} ({{ frappe.db.get_value("Subject", course, "course_name") }})</td>
 						{% for assessment_group in assessment_groups %}
 							{% if doc.include_assessment_criteria %}
-								{% for criteria in default_criteria %}
-									{% if (assessment_result.get(course) and assessment_result.get(course).get(assessment_group) and assessment_result.get(course).get(doc.assessment_group).get(criteria)) %}
+								{% for criteria in doc.assessment_criteria %}
+									{% if (assessment_result.get(course) and assessment_result.get(course).get(assessment_group) and assessment_result.get(course).get(doc.assessment_group).get(criteria.assessment_criteria)) %}
 									<td>
-										{{ assessment_result.get(course).get(doc.assessment_group).get(criteria).get(result_data) }}
+										{{ assessment_result.get(course).get(doc.assessment_group).get(criteria.assessment_criteria).get(result_data) }}
 									</td>
 									{% else %}
 									<td></td>
@@ -494,18 +494,27 @@ p, label, td {
 			</div>
 			<div class="row">
 				<div class="col-xs-12">
-					{% if grading_info.comment %}
+					{% if remarks.education_manager %}
 						<label>Academic Manager's Comments </label>
 						<p>
-							{{ grading_info.comment }}
+							{{ remarks.education_manager_comment }}
 						</p>
 					{% endif %}
+					{% if remarks.principal_comment %}
+					<label>Principal's Comments </label>
+					<p>
+						{{ remarks.principal_comment }}
+					</p>
+					{% endif %}
+
 				</div>
 				<div class="col-xs-12">
+					{% if remarks.instructor_comment %}
 					<label>Instructor's Comments </label>
 					<p>
-						{{ remarks.comment }}
+						{{ remarks.instructor_comment }}
 					</p>
+					{% endif %}
 				</div>
 			</div>
 		</div>

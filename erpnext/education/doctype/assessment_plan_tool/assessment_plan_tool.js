@@ -3,10 +3,17 @@
 
 frappe.ui.form.on('Assessment Plan Tool', {
 	onload: function(frm) {
-		frm.set_query('assessment_group', function(doc, cdt, cdn) {
+		// frm.set_query('assessment_group', function(doc, cdt, cdn) {
+		// 	return{
+		// 		filters: {
+		// 			'is_group': 0
+		// 		}
+		// 	};
+		// });
+		frm.set_query('student_groups', function(doc, cdt, cdn) {
 			return{
 				filters: {
-					'is_group': 0
+					'program': doc.student_class
 				}
 			};
 		});
@@ -37,15 +44,19 @@ frappe.ui.form.on('Assessment Plan Tool', {
 					const [total, plan_errors] = r.message;
 					if (plan_errors) {
 						const errors_html = plan_errors.map(c => `
-							<p>${c}</p><br>
+							<tr>
+							<td>${c}</td>
+							<td></td>
+							</tr>
 						`).join('');
 
 						const html = `
 							<table class="table table-bordered">
 								<caption>${total} ${__('Total Plans were created')}</caption>
-								<thead><tr><th>${__("Course")}</th><th>${__("Date")}</th></tr></thead>
+								<h5>Plan Errors</h5>
+								<thead><tr><th>${__("Subject")}</th><th>${__("")}</th></tr></thead>
 								<tbody>
-									<h5>Plan Errors</h5>
+									
 									${errors_html}
 								</tbody>
 							</table>

@@ -36,18 +36,17 @@ def preview_report_card(doc):
 
 	# get the assessment result of the selected student
 	values = get_formatted_result(
-		doc, get_course=True, get_all_assessment_groups=doc.include_all_assessment
+		doc, get_course=True, get_all_assessment_groups=(not doc.include_assessment_criteria)
 	)
 	grading_scale_name = frappe.db.get_value('Class', doc.program, 'grading_scale')
 	grading_scale = frappe.get_doc('Grading Scale', grading_scale_name)
 	assessment_result = values.get("assessment_result").get(doc.student)
 	courses = values.get("course_dict")
-	default_criteria = get_default_criteria()
 	settings = frappe.get_doc('Education Settings')
 
 	student_grading_info = get_student_class_grading_info(doc.program, doc.academic_year, doc.students[0], doc.assessment_group)
 	# get the assessment group as per the user selection
-	if doc.include_all_assessment:
+	if not doc.include_assessment_criteria:
 		assessment_groups = get_child_assessment_groups(doc.assessment_group)
 	else: 
 		assessment_groups = [ doc.assessment_group ]
@@ -76,7 +75,6 @@ def preview_report_card(doc):
 			"assessment_result": assessment_result,
 			"courses": courses,
 			"assessment_groups": assessment_groups,
-			"default_criteria": default_criteria,
 			"remarks": instructor_remarks,
 			"letterhead": letterhead and letterhead.get("content", None),
 			"add_letterhead": doc.add_letterhead if doc.add_letterhead else 0,
@@ -95,16 +93,22 @@ def preview_report_card(doc):
 	frappe.response.type = "download"
 
 def get_student_class_grading_info(student_class, academic_year, student, assessment_group):
-	class_result = frappe.get_last_doc('Class Assessment Group Result', {"program": student_class, "assessment_group": assessment_group, "academic_year": academic_year}).as_dict()
-	student_result = frappe.get_last_doc('Student Assessment Report Information', filters={"student": student, "parent": class_result.name}).as_dict()
-	student_result["subjects_info"] = class_result.get("subjects")
-	return student_result
+	try:
+		class_result = frappe.get_last_doc('Class Assessment Group Result', {"program": student_class, "assessment_group": assessment_group, "academic_year": academic_year}).as_dict()
+		student_result = frappe.get_last_doc('Student Assessment Report Information', filters={"student": student, "parent": class_result.name}).as_dict()
+		student_result["subjects_info"] = class_result.get("subjects")
+		return student_result
+	except:
+		return None
 
 def get_student_class_remark_info(student_class, academic_year, student, assessment_group):
-	class_remarks = frappe.get_last_doc('Student Group Assessment Remarks', {"student_class": student_class, "assessment_group": assessment_group, "academic_year": academic_year}).as_dict()
-	student_remark = frappe.get_last_doc('Student Assessment Remark Information', filters={"student": student, "parent": class_remarks.name}).as_dict()
-	return student_remark
-
+	try:
+		class_remarks = frappe.get_last_doc('Student Group Assessment Remarks', {"student_class": student_class, "assessment_group": assessment_group, "academic_year": academic_year}).as_dict()
+		student_remark = frappe.get_last_doc('Student Assessment Remark Information', filters={"student": student, "parent": class_remarks.name}).as_dict()
+		return student_remark
+	except:
+		return None
+		
 def get_courses_criteria(courses):
 	course_criteria = frappe._dict()
 	for course in courses:

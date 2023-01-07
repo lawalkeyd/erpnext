@@ -10,6 +10,7 @@
   "student_name",
   "include_all_assessment",
   "include_assessment_criteria",
+  "assessment_criteria",
   "show_marks",
   "add_letterhead",
   "column_break_3",
@@ -44,10 +45,11 @@
    "reqd": 1
   },
   {
-   "default": "1",
+   "default": "!include_assessment_criteria",
    "fieldname": "include_all_assessment",
    "fieldtype": "Check",
-   "label": "Include All Assessment Group"
+   "label": "Include All Assessment Group",
+   "read_only": 1
   },
   {
    "default": "0",
@@ -124,12 +126,19 @@
    "fieldname": "include_assessment_criteria",
    "fieldtype": "Check",
    "label": "Include Assessment Criteria"
+  },
+  {
+   "depends_on": "eval:doc.include_assessment_criteria == 1;",
+   "fieldname": "assessment_criteria",
+   "fieldtype": "Table MultiSelect",
+   "label": "Select Assessment Criteria",
+   "options": "Select Assessment Criteria"
   }
  ],
  "hide_toolbar": 1,
  "issingle": 1,
  "links": [],
- "modified": "2022-12-27 01:25:03.437994",
+ "modified": "2023-01-07 01:29:00.534866",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Student Report Generation Tool",

@@ -79,27 +79,30 @@ class ClassAssessmentGroupResult(Document):
 		
 
 def calculate_student_positions(student_list):
-  # Sort the list of students by their total marks in descending order
-  sorted_students = sorted(student_list, key=lambda d: d['total_marks'], reverse=True)
+	# Sort the list of students by their total marks in descending order
+	sorted_students = sorted(student_list, key=lambda d: d['total_marks'], reverse=True)
 
-  # Create a dictionary to store the positions for each student group
-  positions = {}
+	# Create a dictionary to store the positions for each student group
+	positions = {}
 
-  # Iterate over the sorted list of students
-  for i, student in enumerate(sorted_students):
-    # If the student group is not already in the positions dictionary, add it
-    # with the current position (i + 1) as the value
-    if student["student_group"] not in positions:
-      positions[student["student_group"]] = i + 1
+	# Iterate over the sorted list of students
+	for i, student in enumerate(sorted_students):
+		# If the student group is not already in the positions dictionary, add it
+		# with the current position (i + 1) as the value
+		if student["student_group"] not in positions:
+			positions[student["student_group"]] = 1
+		else:
+			positions[student["student_group"]] += 1
 
-    # Assign the student group position and overall position to the student
-    student["student_group_position"] = sorted_students.index(student) + 1
-    student["overall_position"] = positions[student["student_group"]]
+		# Assign the student group position and overall position to the student
+		student["student_group_position"] = positions[student["student_group"]]
+		student["overall_position"] = sorted_students.index(student) + 1
 
-    # If the student has the same score as the previous student,
-    # use the same position for both
-    if i > 0 and student["total_marks"] == sorted_students[i - 1]["total_marks"]:
-      student["student_group_position"] = sorted_students[i - 1]["student_group_position"]
-      student["overall_position"] = sorted_students[i - 1]["overall_position"]
-
-  return sorted_students
+		# If the student has the same score as the previous student,
+		# use the same position for both
+		if i > 0 and student["total_marks"] == sorted_students[i - 1]["total_marks"]:
+			student["overall_position"] = sorted_students[i - 1]["overall_position"]
+			if student["student_group"] == sorted_students[i - 1]["student_group"]:
+				student["student_group_position"] = sorted_students[i - 1]["total_marks"]
+	
+	return sorted_students

@@ -14,6 +14,15 @@ frappe.ui.form.on('Class Assessment Group Result', {
 			}
 		})
 	},
+	onload: function(frm) {
+		frm.set_query('assessment_group', function(doc, cdt, cdn) {
+			return{
+				filters: {
+					'is_group': 1
+				}
+			};
+		});
+	},
 
 	"calculate_marks": function(frm) {
 		frm.set_value("students",[]);

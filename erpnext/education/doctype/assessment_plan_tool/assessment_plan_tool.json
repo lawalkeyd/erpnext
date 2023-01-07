@@ -8,11 +8,11 @@
  "field_order": [
   "section_break_2",
   "assessment_group",
-  "student_group",
+  "student_class",
   "subjects",
   "column_break_4",
   "grading_scale",
-  "student_class",
+  "student_groups",
   "academic_year",
   "academic_term",
   "evaluate_section",
@@ -96,26 +96,24 @@
    "reqd": 1
   },
   {
-   "fieldname": "student_group",
-   "fieldtype": "Link",
+   "fieldname": "student_groups",
+   "fieldtype": "Table MultiSelect",
    "label": "Student Group",
-   "options": "Student Group",
+   "options": "Select Student Group",
    "reqd": 1
   },
   {
-   "fetch_from": "student_group.program",
    "fieldname": "student_class",
    "fieldtype": "Link",
    "label": "Class",
    "options": "Class",
-   "read_only": 1,
    "reqd": 1
   }
  ],
  "hide_toolbar": 1,
  "issingle": 1,
  "links": [],
- "modified": "2023-01-06 01:47:06.297963",
+ "modified": "2023-01-06 11:32:48.888924",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Assessment Plan Tool",
