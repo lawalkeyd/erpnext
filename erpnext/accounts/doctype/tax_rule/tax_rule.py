@@ -10,7 +10,7 @@ from frappe.contacts.doctype.address.address import get_default_address
 from frappe.model.document import Document
 from frappe.utils import cint, cstr
 from frappe.utils.nestedset import get_root_of
-from past.builtins import cmp
+# from past.builtins import cmp
 from six import iteritems
 
 from erpnext.setup.doctype.customer_group.customer_group import get_parent_customer_groups
@@ -206,20 +206,21 @@ def get_tax_template(posting_date, args):
 			if rule.get(key):
 				rule.no_of_keys_matched += 1
 
-	rule = sorted(
-		tax_rule,
-		key=functools.cmp_to_key(
-			lambda b, a: cmp(a.no_of_keys_matched, b.no_of_keys_matched) or cmp(a.priority, b.priority)
-		),
-	)[0]
+	# rule = sorted(
+	# 	tax_rule,
+	# 	key=functools.cmp_to_key(
+	# 		lambda b, a: cmp(a.no_of_keys_matched, b.no_of_keys_matched) or cmp(a.priority, b.priority)
+	# 	),
+	# )[0]
 
-	tax_template = rule.sales_tax_template or rule.purchase_tax_template
-	doctype = "{0} Taxes and Charges Template".format(rule.tax_type)
+	# tax_template = rule.sales_tax_template or rule.purchase_tax_template
+	# doctype = "{0} Taxes and Charges Template".format(rule.tax_type)
 
-	if frappe.db.get_value(doctype, tax_template, "disabled") == 1:
-		return None
+	# if frappe.db.get_value(doctype, tax_template, "disabled") == 1:
+	# 	return None
 
-	return tax_template
+	# return tax_template
+	return ""
 
 
 def get_customer_group_condition(customer_group):

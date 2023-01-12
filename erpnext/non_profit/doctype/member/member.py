@@ -5,7 +5,7 @@
 import frappe
 from frappe import _
 from frappe.contacts.address_and_contact import load_address_and_contact
-from frappe.integrations.utils import get_payment_gateway_controller
+# from frappe.integrations.utils import get_payment_gateway_controller
 from frappe.model.document import Document
 from frappe.utils import cint, get_link_to_form
 
@@ -33,8 +33,8 @@ class Member(Document):
 				_("Please check Enable Razorpay for Memberships in {0} to setup subscription")
 			).format(get_link_to_form("Non Profit Settings", "Non Profit Settings"))
 
-		controller = get_payment_gateway_controller("Razorpay")
-		settings = controller.get_settings({})
+		# controller = get_payment_gateway_controller("Razorpay")
+		# settings = controller.get_settings({})
 
 		plan_id = frappe.get_value("Membership Type", self.membership_type, "razorpay_plan_id")
 
@@ -49,9 +49,9 @@ class Member(Document):
 
 		args = {"subscription_details": subscription_details}
 
-		subscription = controller.setup_subscription(settings, **args)
+		# subscription = controller.setup_subscription(settings, **args)
 
-		return subscription
+		return ""
 
 	@frappe.whitelist()
 	def make_customer_and_link(self):

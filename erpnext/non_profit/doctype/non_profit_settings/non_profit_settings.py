@@ -4,7 +4,7 @@
 
 import frappe
 from frappe import _
-from frappe.integrations.utils import get_payment_gateway_controller
+# from frappe.integrations.utils import get_payment_gateway_controller
 from frappe.model.document import Document
 
 
@@ -40,6 +40,7 @@ class NonProfitSettings(Document):
 
 @frappe.whitelist()
 def get_plans_for_membership(*args, **kwargs):
-	controller = get_payment_gateway_controller("Razorpay")
-	plans = controller.get_plans()
-	return [plan.get("item") for plan in plans.get("items")]
+	# controller = get_payment_gateway_controller("Razorpay")
+	# plans = controller.get_plans()
+	# return [plan.get("item") for plan in plans.get("items")]
+	pass

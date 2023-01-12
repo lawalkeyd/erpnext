@@ -5,7 +5,7 @@
 import frappe
 import gocardless_pro
 from frappe import _
-from frappe.integrations.utils import create_payment_gateway, create_request_log
+# from frappe.integrations.utils import create_payment_gateway, create_request_log
 from frappe.model.document import Document
 from frappe.utils import call_hook_method, cint, flt, get_url
 from six.moves.urllib.parse import urlencode
@@ -28,9 +28,9 @@ class GoCardlessSettings(Document):
 			frappe.throw(e)
 
 	def on_update(self):
-		create_payment_gateway(
-			"GoCardless-" + self.gateway_name, settings="GoCardLess Settings", controller=self.gateway_name
-		)
+		# create_payment_gateway(
+		# 	"GoCardless-" + self.gateway_name, settings="GoCardLess Settings", controller=self.gateway_name
+		# )
 		call_hook_method("payment_gateway_enabled", gateway="GoCardless-" + self.gateway_name)
 
 	def on_payment_request_submission(self, data):
@@ -55,7 +55,7 @@ class GoCardlessSettings(Document):
 		if valid_mandate is not None:
 			data.update(valid_mandate)
 
-			self.create_payment_request(data)
+			# self.create_payment_request(data)
 			return False
 		else:
 			return True
@@ -102,7 +102,7 @@ class GoCardlessSettings(Document):
 		self.data = frappe._dict(data)
 
 		try:
-			self.integration_request = create_request_log(self.data, "Host", "GoCardless")
+			# self.integration_request = create_request_log(self.data, "Host", "GoCardless")
 			return self.create_charge_on_gocardless()
 
 		except Exception:

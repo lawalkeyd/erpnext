@@ -6,7 +6,7 @@ from json import dumps, loads
 
 import frappe
 from frappe import _
-from frappe.integrations.utils import create_payment_gateway, create_request_log
+# from frappe.integrations.utils import create_payment_gateway, create_request_log
 from frappe.model.document import Document
 from frappe.utils import call_hook_method, fmt_money, get_request_site_address
 
@@ -30,11 +30,11 @@ class MpesaSettings(Document):
 
 	def on_update(self):
 		create_custom_pos_fields()
-		create_payment_gateway(
-			"Mpesa-" + self.payment_gateway_name,
-			settings="Mpesa Settings",
-			controller=self.payment_gateway_name,
-		)
+		# create_payment_gateway(
+		# 	"Mpesa-" + self.payment_gateway_name,
+		# 	settings="Mpesa Settings",
+		# 	controller=self.payment_gateway_name,
+		# )
 		call_hook_method(
 			"payment_gateway_enabled", gateway="Mpesa-" + self.payment_gateway_name, payment_channel="Phone"
 		)
@@ -109,7 +109,8 @@ class MpesaSettings(Document):
 			error = None
 
 		if not frappe.db.exists("Integration Request", req_name):
-			create_request_log(request_dict, "Host", "Mpesa", req_name, error)
+			# create_request_log(request_dict, "Host", "Mpesa", req_name, error)
+			pass
 
 		if error:
 			frappe.throw(_(getattr(response, "errorMessage")), title=_("Transaction Error"))

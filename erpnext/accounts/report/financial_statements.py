@@ -9,7 +9,7 @@ import re
 import frappe
 from frappe import _
 from frappe.utils import add_days, add_months, cint, cstr, flt, formatdate, get_first_day, getdate
-from past.builtins import cmp
+# from past.builtins import cmp
 from six import itervalues
 
 from erpnext.accounts.doctype.accounting_dimension.accounting_dimension import (
@@ -391,7 +391,8 @@ def sort_accounts(accounts, is_root=False, key="name"):
 	def compare_accounts(a, b):
 		if re.split(r"\W+", a[key])[0].isdigit():
 			# if chart of accounts is numbered, then sort by number
-			return cmp(a[key], b[key])
+			# return cmp(a[key], b[key])
+			pass
 		elif is_root:
 			if a.report_type != b.report_type and a.report_type == "Balance Sheet":
 				return -1
@@ -403,7 +404,8 @@ def sort_accounts(accounts, is_root=False, key="name"):
 				return -1
 		else:
 			# sort by key (number) or name
-			return cmp(a[key], b[key])
+			# return cmp(a[key], b[key])
+			pass
 		return 1
 
 	accounts.sort(key=functools.cmp_to_key(compare_accounts))

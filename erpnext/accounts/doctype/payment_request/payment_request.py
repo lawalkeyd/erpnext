@@ -6,7 +6,7 @@ import json
 
 import frappe
 from frappe import _
-from frappe.integrations.utils import get_payment_gateway_controller
+# from frappe.integrations.utils import get_payment_gateway_controller
 from frappe.model.document import Document
 from frappe.utils import flt, get_url, nowdate
 from frappe.utils.background_jobs import enqueue
@@ -107,7 +107,7 @@ class PaymentRequest(Document):
 			self.request_phone_payment()
 
 	def request_phone_payment(self):
-		controller = get_payment_gateway_controller(self.payment_gateway)
+		# controller = get_payment_gateway_controller(self.payment_gateway)
 		request_amount = self.get_request_amount()
 
 		payment_record = dict(
@@ -120,8 +120,8 @@ class PaymentRequest(Document):
 			payment_gateway=self.payment_gateway,
 		)
 
-		controller.validate_transaction_currency(self.currency)
-		controller.request_for_payment(**payment_record)
+		# controller.validate_transaction_currency(self.currency)
+		# controller.request_for_payment(**payment_record)
 
 	def get_request_amount(self):
 		data_of_completed_requests = frappe.get_all(
@@ -156,11 +156,11 @@ class PaymentRequest(Document):
 
 	def payment_gateway_validation(self):
 		try:
-			controller = get_payment_gateway_controller(self.payment_gateway)
-			if hasattr(controller, "on_payment_request_submission"):
-				return controller.on_payment_request_submission(self)
-			else:
-				return True
+			# controller = get_payment_gateway_controller(self.payment_gateway)
+			# if hasattr(controller, "on_payment_request_submission"):
+			# 	return controller.on_payment_request_submission(self)
+			# else:
+			return True
 		except Exception:
 			return False
 
@@ -189,25 +189,26 @@ class PaymentRequest(Document):
 			)
 			data.update({"company": frappe.defaults.get_defaults().company})
 
-		controller = get_payment_gateway_controller(self.payment_gateway)
-		controller.validate_transaction_currency(self.currency)
+		# controller = get_payment_gateway_controller(self.payment_gateway)
+		# controller.validate_transaction_currency(self.currency)
 
-		if hasattr(controller, "validate_minimum_transaction_amount"):
-			controller.validate_minimum_transaction_amount(self.currency, self.grand_total)
+		# if hasattr(controller, "validate_minimum_transaction_amount"):
+		# 	controller.validate_minimum_transaction_amount(self.currency, self.grand_total)
 
-		return controller.get_payment_url(
-			**{
-				"amount": flt(self.grand_total, self.precision("grand_total")),
-				"title": data.company.encode("utf-8"),
-				"description": self.subject.encode("utf-8"),
-				"reference_doctype": "Payment Request",
-				"reference_docname": self.name,
-				"payer_email": self.email_to or frappe.session.user,
-				"payer_name": frappe.safe_encode(data.customer_name),
-				"order_id": self.name,
-				"currency": self.currency,
-			}
-		)
+		# return controller.get_payment_url(
+		# 	**{
+		# 		"amount": flt(self.grand_total, self.precision("grand_total")),
+		# 		"title": data.company.encode("utf-8"),
+		# 		"description": self.subject.encode("utf-8"),
+		# 		"reference_doctype": "Payment Request",
+		# 		"reference_docname": self.name,
+		# 		"payer_email": self.email_to or frappe.session.user,
+		# 		"payer_name": frappe.safe_encode(data.customer_name),
+		# 		"order_id": self.name,
+		# 		"currency": self.currency,
+		# 	}
+		# )
+		return ""
 
 	def set_as_paid(self):
 		if self.payment_channel == "Phone":
